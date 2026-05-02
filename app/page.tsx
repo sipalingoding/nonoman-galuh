@@ -12,15 +12,12 @@ import Footer from "@/components/Footer";
 
 export default function HomePage() {
   return (
-    <>
+    <div className="site-shell">
       <Navbar />
       <main>
         <Hero />
         <StatsBar />
-        {/* pt-16 to clear the overlapping StatsBar */}
-        <div className="pt-16">
-          <BeritaInformasi />
-        </div>
+        <BeritaInformasi />
         <ArtikelBudaya />
         <AgendaBudaya />
         <WisataTokoh />
@@ -29,6 +26,6 @@ export default function HomePage() {
         <TimPengembang />
       </main>
       <Footer />
-    </>
+    </div>
   );
 }

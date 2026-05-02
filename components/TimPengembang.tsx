@@ -1,104 +1,83 @@
-const teamData = [
-  {
-    kategori: "Pengelola",
-    anggota: [
-      { nama: "Dr. Ahmad Yusuf", peran: "Ketua Tim" },
-      { nama: "Sari Dewi, M.Hum", peran: "Koordinator Konten" },
-      { nama: "Budi Santoso", peran: "Editor Senior" },
-    ],
-  },
-  {
-    kategori: "Pengembang",
-    anggota: [
-      { nama: "Rizki Fauzan", peran: "Lead Developer" },
-      { nama: "Nadia Putri", peran: "UI/UX Designer" },
-      { nama: "Hendra Wijaya", peran: "Backend Engineer" },
-    ],
-  },
-  {
-    kategori: "Kontributor",
-    anggota: [
-      { nama: "Prof. Irawati", peran: "Konsultan Budaya" },
-      { nama: "Drs. Suparman", peran: "Peneliti Sejarah" },
-      { nama: "Maya Sari", peran: "Fotografer" },
-    ],
-  },
-  {
-    kategori: "Kontak",
-    anggota: [
-      { nama: "info@nusantaranusantara.id", peran: "Email Umum" },
-      { nama: "(022) 1234-5678", peran: "Telepon" },
-      { nama: "Jl. Budaya No. 1, Bandung", peran: "Alamat" },
-    ],
-  },
+const col1 = [
+  { role: "Penanggungjawab", name: "Tendi Nugraha" },
+  { role: "Pengelola Konten", name: "Ahmad Rizky Fauzi" },
+  { role: "Administrator Website", name: "A. Nenda Makhtun MK" },
 ];
+
+const col2 = [
+  { role: "Editor/Proofreader", name: "Eggy Aditiar" },
+  { role: "Technical Support", name: "Tata Tarmana" },
+  { role: "Visual Desainer/Illustrator", name: "Bagus Indra Baitullah" },
+];
+
+const col3 = [
+  { role: "Sosial Media & Promosi", name: "W. Rio Wijaya" },
+];
+
+const kontributor = [
+  { role: "Ciamis Kulon", name: "Pasca Adha Pratama" },
+  { role: "Ciamis Kidul", name: "Eka Wijaya Permana" },
+  { role: "Ciamis Kaler", name: "Nu'man Yazid" },
+  { role: "Ciamis Wetan", name: "Lu'luatun Nazmi" },
+];
+
+function Entry({ role, name }: { role: string; name: string }) {
+  return (
+    <div style={{ display: "flex", flexDirection: "column", gap: "2px" }}>
+      <span className="ui-font" style={{ fontSize: "12px", color: "#7a6a54" }}>{role}</span>
+      <span className="ui-font" style={{ fontSize: "14px", fontWeight: 700, color: "#2c2416" }}>{name}</span>
+    </div>
+  );
+}
 
 export default function TimPengembang() {
   return (
     <section
-      className="py-12"
-      style={{ backgroundColor: "var(--cream-dark)" }}
+      style={{
+        background: "#faf4e8",
+        padding: "20px 48px 58px",
+      }}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Header */}
-        <div className="mb-8">
-          <div
-            className="flex items-center gap-2 mb-2"
-            style={{ fontFamily: "var(--font-sans)" }}
-          >
-            <span
-              className="w-6 h-0.5 inline-block"
-              style={{ backgroundColor: "var(--dark-green)" }}
-            />
-            <span
-              className="text-xs font-bold uppercase tracking-widest"
-              style={{ color: "var(--dark-green)" }}
-            >
-              Tentang Kami
-            </span>
-          </div>
+      <div style={{ maxWidth: "1010px", margin: "0 auto" }}>
+        <div style={{ display: "flex", alignItems: "center", gap: "32px", marginBottom: "28px" }}>
           <h2
-            className="text-2xl font-black"
-            style={{ color: "var(--dark-green)", fontFamily: "var(--font-serif)" }}
+            className="serif-title"
+            style={{ fontSize: "28px", fontWeight: 400, color: "#6f5f4c", whiteSpace: "nowrap", lineHeight: 1.2 }}
           >
-            Tim Pengembang
+            Tim Pengelola
           </h2>
+          <div style={{ height: "1px", background: "rgba(209,78,31,.38)", flex: 1 }} />
         </div>
 
-        {/* Team Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {teamData.map((group) => (
-            <div key={group.kategori}>
-              <h3
-                className="text-sm font-black mb-3 pb-2 border-b"
-                style={{
-                  color: "var(--dark-green)",
-                  fontFamily: "var(--font-serif)",
-                  borderColor: "#d4c9a8",
-                }}
-              >
-                {group.kategori}
-              </h3>
-              <ul className="space-y-2">
-                {group.anggota.map((a) => (
-                  <li key={a.nama} className="flex flex-col">
-                    <span
-                      className="text-xs font-semibold"
-                      style={{ color: "var(--dark-green)", fontFamily: "var(--font-sans)" }}
-                    >
-                      {a.nama}
-                    </span>
-                    <span
-                      className="text-xs"
-                      style={{ color: "var(--text-light)", fontFamily: "var(--font-sans)" }}
-                    >
-                      {a.peran}
-                    </span>
-                  </li>
-                ))}
-              </ul>
+        <div
+          style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "34px" }}
+        >
+          {/* Col 1 */}
+          <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
+            {col1.map((e) => <Entry key={e.name} {...e} />)}
+          </div>
+
+          {/* Col 2 */}
+          <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
+            {col2.map((e) => <Entry key={e.name} {...e} />)}
+          </div>
+
+          {/* Col 3 */}
+          <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
+            {col3.map((e) => <Entry key={e.name} {...e} />)}
+          </div>
+
+          {/* Col 4: Kontributor */}
+          <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
+            <span className="ui-font" style={{ fontSize: "12px", color: "#7a6a54", fontWeight: 700 }}>
+              Kontributor:
+            </span>
+            <div
+              style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "4px 24px" }}
+            >
+              {kontributor.map((e) => <Entry key={e.name} {...e} />)}
             </div>
-          ))}
+          </div>
         </div>
       </div>
     </section>

@@ -1,149 +1,206 @@
+import Image from "next/image";
 import Link from "next/link";
 
-const footerLinks = {
-  "Navigasi": [
-    { label: "Beranda", href: "/" },
-    { label: "Berita & Info", href: "/berita" },
-    { label: "Artikel Budaya", href: "/artikel" },
-    { label: "Agenda", href: "/agenda" },
-  ],
-  "Eksplorasi": [
-    { label: "Wisata Budaya", href: "/wisata" },
-    { label: "Tokoh Budaya", href: "/tokoh" },
-    { label: "Kanal YouTube", href: "https://youtube.com" },
-    { label: "Rak Buku", href: "/buku" },
-  ],
-  "Informasi": [
-    { label: "Tentang Kami", href: "/tentang" },
-    { label: "Tim Pengembang", href: "/tim" },
-    { label: "Kebijakan Privasi", href: "/privasi" },
-    { label: "Syarat & Ketentuan", href: "/syarat" },
-  ],
-};
-
-function LogoMark() {
+function SocialIcon({ children }: { children: React.ReactNode }) {
   return (
-    <svg viewBox="0 0 80 80" className="w-12 h-12" fill="none">
-      <circle cx="40" cy="40" r="38" stroke="var(--yellow)" strokeWidth="2" />
-      <polygon
-        points="40,10 60,55 20,55"
-        fill="none"
-        stroke="var(--yellow)"
-        strokeWidth="2"
-      />
-      <circle cx="40" cy="40" r="6" fill="var(--yellow)" />
-      <line x1="40" y1="10" x2="40" y2="70" stroke="var(--yellow)" strokeWidth="1" opacity="0.4" />
-      <line x1="10" y1="40" x2="70" y2="40" stroke="var(--yellow)" strokeWidth="1" opacity="0.4" />
-    </svg>
+    <span
+      style={{
+        width: "36px",
+        height: "36px",
+        borderRadius: "50%",
+        border: "2px solid rgba(255,255,255,.5)",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        cursor: "pointer",
+      }}
+    >
+      {children}
+    </span>
   );
 }
 
 export default function Footer() {
   return (
-    <footer style={{ backgroundColor: "var(--dark-green)" }}>
-      {/* Top section */}
-      <div
-        className="border-b"
-        style={{ borderColor: "rgba(255,255,255,0.1)" }}
-      >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-            {/* Brand */}
-            <div className="md:col-span-1">
-              <div className="flex items-center gap-3 mb-4">
-                <LogoMark />
-                <div>
-                  <p
-                    className="text-[10px] font-medium tracking-wide"
-                    style={{ color: "rgba(255,255,255,0.6)", fontFamily: "var(--font-inter)" }}
-                  >
-                    Platform Kebudayaan
-                  </p>
-                  <p
-                    className="text-lg font-normal tracking-wide"
-                    style={{ color: "var(--yellow)", fontFamily: "var(--font-logo)" }}
-                  >
-                    Nonoman Galuh
-                  </p>
-                </div>
-              </div>
-              <p
-                className="text-xs leading-relaxed opacity-60 mb-4"
-                style={{ color: "white", fontFamily: "var(--font-sans)" }}
-              >
-                Nonoman Galuh — Platform kebudayaan yang berkomitmen memperkenalkan warisan leluhur Galuh kepada generasi muda.
-              </p>
-
-              {/* Social media */}
-              <div className="flex gap-2">
-                {[
-                  { icon: "facebook", href: "#" },
-                  { icon: "instagram", href: "#" },
-                  { icon: "twitter", href: "#" },
-                  { icon: "youtube", href: "#" },
-                ].map((s) => (
-                  <Link
-                    key={s.icon}
-                    href={s.href}
-                    className="w-8 h-8 rounded flex items-center justify-center hover:opacity-80 transition-opacity"
-                    style={{ backgroundColor: "rgba(255,255,255,0.1)" }}
-                    aria-label={s.icon}
-                  >
-                    <span className="text-white text-xs font-bold">
-                      {s.icon === "facebook" && "f"}
-                      {s.icon === "instagram" && "ig"}
-                      {s.icon === "twitter" && "tw"}
-                      {s.icon === "youtube" && "yt"}
-                    </span>
-                  </Link>
-                ))}
-              </div>
-            </div>
-
-            {/* Navigation columns */}
-            {Object.entries(footerLinks).map(([title, links]) => (
-              <div key={title}>
-                <h4
-                  className="text-xs font-bold uppercase tracking-widest mb-4"
-                  style={{ color: "var(--yellow)", fontFamily: "var(--font-sans)" }}
-                >
-                  {title}
-                </h4>
-                <ul className="space-y-2">
-                  {links.map((link) => (
-                    <li key={link.href}>
-                      <Link
-                        href={link.href}
-                        className="text-xs opacity-60 hover:opacity-100 transition-opacity"
-                        style={{ color: "white", fontFamily: "var(--font-sans)" }}
-                      >
-                        {link.label}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
+    <footer>
+      {/* Kawali quote */}
+      <section style={{ background: "#0e7566", padding: "58px 48px" }}>
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "250px 1fr",
+            gap: "48px",
+            alignItems: "center",
+            maxWidth: "890px",
+            margin: "0 auto",
+          }}
+        >
+          <div style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
+            <Image
+              src="/Vector.png"
+              alt="Simbol Kawali"
+              width={142}
+              height={142}
+              style={{ width: "142px", height: "142px", objectFit: "contain" }}
+            />
+          </div>
+          <div style={{ borderLeft: "1px solid rgba(255,255,255,.3)", paddingLeft: "48px" }}>
+            <p
+              className="serif-title"
+              style={{ fontSize: "23px", color: "#f3d45b", lineHeight: 1.35, marginBottom: "12px", fontWeight: 700 }}
+            >
+              hayua diponah-ponah, hayua dicawuh-cawuh
+              <br />
+              ia neker inya angger, inya ni(n)cak inya re(m)pag
+            </p>
+            <p
+              className="ui-font"
+              style={{
+                fontSize: "15px",
+                color: "rgba(255,255,255,.85)",
+                lineHeight: 1.7,
+                fontStyle: "italic",
+                marginBottom: "8px",
+              }}
+            >
+              Jangan dimusnahkan, Jangan semena-mena
+              <br />
+              Ia dihormati, ia tetap. Ia menginjak, ia roboh.
+            </p>
+            <span
+              className="ui-font"
+              style={{ fontSize: "13px", color: "#d4a934", fontStyle: "italic" }}
+            >
+              -- Prasasti Kawali I
+            </span>
           </div>
         </div>
-      </div>
+      </section>
 
-      {/* Bottom bar */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-2">
-          <p
-            className="text-xs opacity-40"
-            style={{ color: "white", fontFamily: "var(--font-sans)" }}
-          >
-            © 2026 Nonoman Galuh. Hak cipta dilindungi undang-undang.
-          </p>
-          <p
-            className="text-xs opacity-40"
-            style={{ color: "white", fontFamily: "var(--font-sans)" }}
-          >
-            Dibangun dengan ❤ untuk pelestarian budaya bangsa
-          </p>
+      {/* Main footer */}
+      <section style={{ background: "#d64221", padding: "44px 48px 38px" }}>
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "1fr 1fr 1fr",
+            gap: "48px",
+            alignItems: "start",
+            maxWidth: "1010px",
+            margin: "0 auto",
+          }}
+        >
+          {/* Brand */}
+          <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
+            <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
+              <Image
+                src="/Logo Nonoman Galuh 1.png"
+                alt="Logo Nonoman Galuh"
+                width={43}
+                height={60}
+                style={{ objectFit: "contain", filter: "brightness(0) invert(1)" }}
+              />
+              <div>
+                <h3
+                  className="ui-font"
+                  style={{ fontSize: "16px", fontWeight: 700, color: "#fffef9" }}
+                >
+                  Pangauban Kawargian
+                  <br />
+                  Nonoman Galuh
+                </h3>
+                <p
+                  className="ui-font"
+                  style={{ fontSize: "12px", color: "rgba(255,255,255,.8)", lineHeight: 1.6, marginTop: "4px" }}
+                >
+                  Jl. Rd. Otto Iskandardinata, Kel. Linggasari,
+                  <br />
+                  Kec. Ciamis, Kab. Ciamis, Jawa Barat
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* Social + visitor */}
+          <div>
+            <div style={{ display: "flex", gap: "16px", marginBottom: "12px" }}>
+              <SocialIcon>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="white">
+                  <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+                </svg>
+              </SocialIcon>
+              <SocialIcon>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="white">
+                  <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.747l7.73-8.835L1.254 2.25H8.08l4.259 5.629L18.244 2.25zm-1.161 17.52h1.833L7.084 4.126H5.117L17.083 19.77z" />
+                </svg>
+              </SocialIcon>
+              <SocialIcon>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="white">
+                  <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z" />
+                </svg>
+              </SocialIcon>
+              <SocialIcon>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="white">
+                  <path d="M23.495 6.205a3.007 3.007 0 0 0-2.088-2.088c-1.87-.501-9.396-.501-9.396-.501s-7.507-.01-9.396.501A3.007 3.007 0 0 0 .527 6.205a31.247 31.247 0 0 0-.522 5.805 31.247 31.247 0 0 0 .522 5.783 3.007 3.007 0 0 0 2.088 2.088c1.868.502 9.396.502 9.396.502s7.506 0 9.396-.502a3.007 3.007 0 0 0 2.088-2.088 31.247 31.247 0 0 0 .5-5.783 31.247 31.247 0 0 0-.5-5.805zM9.609 15.601V8.408l6.264 3.602z" />
+                </svg>
+              </SocialIcon>
+            </div>
+            <div className="ui-font" style={{ fontSize: "13px", color: "rgba(255,255,255,.85)" }}>
+              Total Pengunjung
+              <span
+                className="serif-title"
+                style={{ fontSize: "28px", color: "#fffef9", fontWeight: 700, display: "block" }}
+              >
+                38.763.755
+              </span>
+            </div>
+          </div>
+
+          {/* Join */}
+          <div>
+            <h3
+              className="serif-title"
+              style={{ fontSize: "20px", color: "#fffef9", marginBottom: "10px" }}
+            >
+              Beungkeutan Wadyabalad
+            </h3>
+            <p
+              className="ui-font"
+              style={{ fontSize: "13px", color: "rgba(255,255,255,.85)", lineHeight: 1.6, marginBottom: "16px" }}
+            >
+              Bergabung menjadi anggota Pangauban Kawargian Nonoman Galuh dengan klik link berikut.
+            </p>
+            <Link
+              href="/daftar"
+              className="ui-font"
+              style={{
+                display: "inline-block",
+                background: "#2c2416",
+                color: "#fffef9",
+                padding: "10px 28px",
+                borderRadius: "6px",
+                fontSize: "13px",
+                fontWeight: 600,
+                textDecoration: "none",
+              }}
+            >
+              Isi Form
+            </Link>
+          </div>
         </div>
+      </section>
+
+      {/* Copyright */}
+      <div
+        className="ui-font"
+        style={{
+          background: "#111",
+          textAlign: "center",
+          padding: "16px",
+          fontSize: "12px",
+          color: "rgba(255,255,255,.6)",
+        }}
+      >
+        Copyright@2025 | Pangauban Kawargian Nonoman Galuh
       </div>
     </footer>
   );

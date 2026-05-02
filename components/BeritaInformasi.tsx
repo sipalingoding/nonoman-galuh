@@ -2,119 +2,78 @@ import Link from "next/link";
 
 const beritaData = [
   {
-    id: 1,
-    kategori: "Budaya",
-    judul: "Festival Seni Tradisional Nusantara 2026 Resmi Dibuka",
-    ringkasan: "Ribuan seniman dari seluruh penjuru nusantara berkumpul untuk merayakan kekayaan budaya lokal dalam festival tahunan yang ke-12.",
-    tanggal: "28 Apr 2026",
-    slug: "festival-seni-tradisional-2026",
+    judul: "Kang Dedi Mulyadi: \"Kata siapa Ciamis intoleran? Ciamis itu justru contoh dari toleransi yang nyata di Indonesia\"",
+    tanggal: "27 September 2025",
+    slug: "kang-dedi-mulyadi-ciamis-toleransi",
   },
   {
-    id: 2,
-    kategori: "Informasi",
-    judul: "Program Beasiswa Seni dan Budaya Kembali Dibuka",
-    ringkasan: "Pemerintah kembali membuka program beasiswa khusus bagi para pelajar yang berminat mendalami seni dan budaya nusantara.",
-    tanggal: "25 Apr 2026",
-    slug: "beasiswa-seni-budaya-2026",
+    judul: "Galuh Nanjeur di Dayeuh Indung: KMC Galuh Taruna Raih Juara Pertama dalam Pagelaran Budaya UIN Sunan Gunung Djati Bandung",
+    tanggal: "27 September 2025",
+    slug: "kmc-galuh-taruna-juara-pertama",
   },
   {
-    id: 3,
-    kategori: "Wisata",
-    judul: "Destinasi Wisata Budaya Terbaik Musim Ini",
-    ringkasan: "Temukan destinasi wisata budaya yang wajib dikunjungi, mulai dari candi bersejarah hingga desa adat yang masih terjaga keasliannya.",
-    tanggal: "22 Apr 2026",
-    slug: "destinasi-wisata-budaya-terbaik",
-  },
-  {
-    id: 4,
-    kategori: "Tradisi",
-    judul: "Upacara Adat Seren Taun Digelar Meriah di Kuningan",
-    ringkasan: "Masyarakat Sunda di Kuningan kembali menggelar upacara adat Seren Taun sebagai wujud syukur atas hasil panen.",
-    tanggal: "20 Apr 2026",
-    slug: "upacara-adat-seren-taun-kuningan",
-  },
-  {
-    id: 5,
-    kategori: "Seni",
-    judul: "Wayang Golek Modern: Menjaga Tradisi di Era Digital",
-    ringkasan: "Para dalang muda berinovasi memperkenalkan wayang golek kepada generasi Z melalui platform digital tanpa meninggalkan pakem.",
-    tanggal: "18 Apr 2026",
-    slug: "wayang-golek-modern-era-digital",
-  },
-  {
-    id: 6,
-    kategori: "Kuliner",
-    judul: "Kuliner Nusantara Masuk Daftar Warisan UNESCO",
-    ringkasan: "Tiga jenis masakan tradisional Indonesia berhasil masuk dalam daftar warisan budaya tak benda UNESCO tahun ini.",
-    tanggal: "15 Apr 2026",
-    slug: "kuliner-nusantara-warisan-unesco",
+    judul: "Raden Ema Bratakusumah: Tokoh Asal Tatar Galuh Ciamis yang membangkitkan Pencak Silat di Jawa Barat",
+    tanggal: "25 September 2025",
+    slug: "raden-ema-bratakusumah-pencak-silat",
   },
 ];
 
-const KATEGORI_COLORS: Record<string, string> = {
-  Budaya: "#2A5C45",
-  Informasi: "#1B3B2F",
-  Wisata: "#E8A020",
-  Tradisi: "#C84B31",
-  Seni: "#3D7A5E",
-  Kuliner: "#D4A017",
-};
-
-function NewsCard({ item }: { item: typeof beritaData[0] }) {
+function ShareIcon({ children }: { children: React.ReactNode }) {
   return (
-    <article
-      className="rounded-lg overflow-hidden card-hover cursor-pointer bg-white border border-[#e8dfc8]"
+    <span
+      style={{
+        width: "22px",
+        height: "22px",
+        borderRadius: "50%",
+        background: "#2c2416",
+        display: "inline-flex",
+        alignItems: "center",
+        justifyContent: "center",
+        cursor: "pointer",
+        flexShrink: 0,
+      }}
     >
-      {/* Placeholder image */}
-      <div
-        className="h-40 flex items-end p-3 relative"
-        style={{ backgroundColor: KATEGORI_COLORS[item.kategori] || "#2A5C45" }}
-      >
-        <div className="absolute inset-0 opacity-20">
-          <svg viewBox="0 0 200 160" className="w-full h-full">
-            <rect width="200" height="160" fill="currentColor" />
-            <polygon points="0,160 60,80 120,160" fill="rgba(0,0,0,0.3)" />
-            <polygon points="80,160 150,60 200,160" fill="rgba(0,0,0,0.2)" />
-            <circle cx="160" cy="40" r="30" fill="rgba(255,255,255,0.1)" />
-          </svg>
-        </div>
-        <span
-          className="relative z-10 text-xs font-bold px-2 py-0.5 rounded"
-          style={{ backgroundColor: "rgba(255,255,255,0.9)", color: KATEGORI_COLORS[item.kategori] || "#2A5C45" }}
-        >
-          {item.kategori}
-        </span>
-      </div>
+      {children}
+    </span>
+  );
+}
 
-      <div className="p-4">
-        <p
-          className="text-xs mb-1.5"
-          style={{ color: "var(--text-light)", fontFamily: "var(--font-sans)" }}
-        >
+function NewsCard({ item }: { item: (typeof beritaData)[number] }) {
+  return (
+    <article style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
+      <div className="placeholder-block" style={{ width: "100%", aspectRatio: "1.08/1", borderRadius: 0 }} />
+      <h3
+        className="ui-font"
+        style={{ fontSize: "16px", fontWeight: 500, color: "#4a3f30", lineHeight: 1.45 }}
+      >
+        {item.judul}
+      </h3>
+      <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
+        <span className="ui-font" style={{ fontSize: "11px", color: "#8a7962" }}>
           {item.tanggal}
-        </p>
-        <h3
-          className="font-bold text-sm leading-snug mb-2 line-clamp-2"
-          style={{ color: "var(--dark-green)", fontFamily: "var(--font-serif)" }}
+        </span>
+        <div
+          className="ui-font"
+          style={{ display: "flex", alignItems: "center", gap: "8px", fontSize: "12px", color: "#4a3f30" }}
         >
-          {item.judul}
-        </h3>
-        <p
-          className="text-xs leading-relaxed line-clamp-2 mb-3"
-          style={{ color: "var(--text-medium)", fontFamily: "var(--font-sans)" }}
-        >
-          {item.ringkasan}
-        </p>
-        <Link
-          href={`/berita/${item.slug}`}
-          className="text-xs font-semibold flex items-center gap-1 hover:gap-2 transition-all"
-          style={{ color: "var(--orange)", fontFamily: "var(--font-sans)" }}
-        >
-          Selengkapnya
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-            <path d="M5 12h14M13 6l6 6-6 6" />
-          </svg>
-        </Link>
+          <span>Bagikan</span>
+          <ShareIcon>
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="white">
+              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z" />
+              <path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.553 4.12 1.522 5.855L0 24l6.316-1.491A11.952 11.952 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.878 0-3.641-.487-5.172-1.341l-.371-.218-3.748.885.9-3.657-.24-.386A9.937 9.937 0 0 1 2 12c0-5.514 4.486-10 10-10s10 4.486 10 10-4.486 10-10 10z" />
+            </svg>
+          </ShareIcon>
+          <ShareIcon>
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="white">
+              <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+            </svg>
+          </ShareIcon>
+          <ShareIcon>
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="white">
+              <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.747l7.73-8.835L1.254 2.25H8.08l4.259 5.629L18.244 2.25zm-1.161 17.52h1.833L7.084 4.126H5.117L17.083 19.77z" />
+            </svg>
+          </ShareIcon>
+        </div>
       </div>
     </article>
   );
@@ -122,59 +81,55 @@ function NewsCard({ item }: { item: typeof beritaData[0] }) {
 
 export default function BeritaInformasi() {
   return (
-    <section className="py-12 paper-bg">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Header */}
-        <div className="flex items-end justify-between mb-8">
-          <div>
-            <div
-              className="flex items-center gap-2 mb-2"
-              style={{ fontFamily: "var(--font-sans)" }}
-            >
-              <span
-                className="w-6 h-0.5 inline-block"
-                style={{ backgroundColor: "var(--orange)" }}
-              />
-              <span
-                className="text-xs font-bold uppercase tracking-widest"
-                style={{ color: "var(--orange)" }}
-              >
-                Terkini
-              </span>
-            </div>
-            <h2
-              className="text-2xl font-black"
-              style={{ color: "var(--dark-green)", fontFamily: "var(--font-serif)" }}
-            >
-              Berita dan Informasi
-            </h2>
-            <p
-              className="text-sm mt-1 max-w-md"
-              style={{ color: "var(--text-light)", fontFamily: "var(--font-sans)" }}
-            >
-              Kabar terbaru seputar seni, budaya, dan tradisi nusantara yang perlu Anda ketahui.
-            </p>
-          </div>
-          <Link href="/berita" className="btn-outline hidden sm:inline-flex text-xs">
-            Lihat Semua
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-              <path d="M5 12h14M13 6l6 6-6 6" />
-            </svg>
-          </Link>
-        </div>
+    <section style={{ background: "#faf4e8", padding: "34px 48px 92px" }}>
+      <div style={{ textAlign: "center", marginBottom: "54px" }}>
+        <h2
+          className="serif-title"
+          style={{ fontSize: "30px", fontWeight: 400, color: "#6f5f4c", marginBottom: "13px", lineHeight: 1.2 }}
+        >
+          Berita dan Informasi
+        </h2>
+        <p
+          className="ui-font"
+          style={{ fontSize: "13px", color: "#7a6a54", maxWidth: "610px", margin: "0 auto", lineHeight: 1.45, fontWeight: 600 }}
+        >
+          Banyak informasi positif tentang kegiatan budaya yang sering luput dari perhatian kita.
+          Pangauban Kawargian Nonoman Galuh hadir dengan misi untuk menyebarkan berbagai informasi
+          mengenai kebudayaan yang ada di Kabupaten Ciamis.
+        </p>
+      </div>
 
-        {/* Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-          {beritaData.map((item) => (
-            <NewsCard key={item.id} item={item} />
-          ))}
-        </div>
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(3, 1fr)",
+          gap: "32px",
+          maxWidth: "1010px",
+          margin: "0 auto",
+        }}
+      >
+        {beritaData.map((item) => (
+          <NewsCard key={item.slug} item={item} />
+        ))}
+      </div>
 
-        <div className="mt-6 text-center sm:hidden">
-          <Link href="/berita" className="btn-outline text-sm">
-            Lihat Semua Berita
-          </Link>
-        </div>
+      <div style={{ textAlign: "center", marginTop: "46px" }}>
+        <Link
+          href="/berita"
+          className="ui-font"
+          style={{
+            display: "inline-block",
+            background: "#d14e1f",
+            color: "#fffef9",
+            padding: "9px 26px",
+            borderRadius: "999px",
+            fontSize: "12px",
+            fontWeight: 600,
+            textDecoration: "none",
+          }}
+        >
+          Lihat Berita lainnya
+        </Link>
       </div>
     </section>
   );

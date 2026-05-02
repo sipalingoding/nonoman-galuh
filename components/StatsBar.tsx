@@ -7,44 +7,41 @@ const stats = [
 
 export default function StatsBar() {
   return (
-    <div className="relative h-0 z-20 flex justify-center">
+    <section style={{ background: "#faf4e8", height: "92px", position: "relative" }}>
       <div
-        className="absolute -translate-y-1/2 rounded-full shadow-xl"
         style={{
-          backgroundColor: "#007367",
-          width: "1008.89px",
-          height: "97.78px",
-          maxWidth: "95vw",
+          background: "#0e7566",
+          borderRadius: "999px",
+          display: "flex",
+          justifyContent: "space-around",
+          alignItems: "center",
+          width: "min(calc(100% - 316px), 1010px)",
+          height: "96px",
+          position: "absolute",
+          top: "-32px",
+          left: "50%",
+          transform: "translateX(-50%)",
+          padding: "0 86px",
+          boxShadow: "0 14px 18px rgba(44,36,22,.22)",
         }}
       >
-        <div className="flex items-center justify-around px-8 h-full">
-          {stats.map((s) => (
-            <div
-              key={s.label}
-              className="flex items-baseline gap-2"
+        {stats.map((s) => (
+          <div key={s.label} style={{ display: "flex", alignItems: "baseline", gap: "8px" }}>
+            <span
+              className="label-font"
+              style={{ fontSize: "34px", fontWeight: 900, color: "#fffef9", lineHeight: 1 }}
             >
-              <span
-                className="text-2xl sm:text-3xl leading-none text-white"
-                style={{
-                  fontFamily: "var(--font-nunito)",
-                  fontWeight: 700,
-                }}
-              >
-                {s.value}
-              </span>
-              <span
-                className="text-sm sm:text-base text-white"
-                style={{
-                  fontFamily: "var(--font-nunito)",
-                  fontWeight: 400,
-                }}
-              >
-                {s.label}
-              </span>
-            </div>
-          ))}
-        </div>
+              {s.value}
+            </span>
+            <span
+              className="label-font"
+              style={{ fontSize: "15px", color: "#fffef9", fontWeight: 500 }}
+            >
+              {s.label}
+            </span>
+          </div>
+        ))}
       </div>
-    </div>
+    </section>
   );
 }

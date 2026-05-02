@@ -1,28 +1,30 @@
 import type { Metadata } from "next";
-import { Merriweather, Inter, ZCOOL_XiaoWei, Nunito_Sans } from "next/font/google";
+import { Inter, Merriweather, Nunito_Sans, ZCOOL_XiaoWei } from "next/font/google";
 import "./globals.css";
 
-const merriweather = Merriweather({
-  weight: ["300", "400", "700", "900"],
-  variable: "--font-serif",
+const inter = Inter({
   subsets: ["latin"],
+  variable: "--font-inter",
+  display: "swap",
 });
 
-const inter = Inter({
-  variable: "--font-inter",
+const merriweather = Merriweather({
   subsets: ["latin"],
+  variable: "--font-merriweather",
+  display: "swap",
+});
+
+const nunitoSans = Nunito_Sans({
+  subsets: ["latin"],
+  variable: "--font-nunito-sans",
+  display: "swap",
 });
 
 const zcoolXiaoWei = ZCOOL_XiaoWei({
   weight: "400",
-  variable: "--font-logo",
   subsets: ["latin"],
-});
-
-const nunitoSans = Nunito_Sans({
-  weight: ["400", "700", "800"],
-  variable: "--font-nunito",
-  subsets: ["latin"],
+  variable: "--font-zcool-xiaowei",
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -38,9 +40,9 @@ export default function RootLayout({
   return (
     <html
       lang="id"
-      className={`${merriweather.variable} ${inter.variable} ${zcoolXiaoWei.variable} ${nunitoSans.variable}`}
+      className={`${inter.variable} ${merriweather.variable} ${nunitoSans.variable} ${zcoolXiaoWei.variable}`}
     >
-      <body className="min-h-screen flex flex-col">
+      <body>
         {children}
       </body>
     </html>
