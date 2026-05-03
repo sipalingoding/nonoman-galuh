@@ -13,6 +13,7 @@ function SocialIcon({ children }: { children: React.ReactNode }) {
         alignItems: "center",
         justifyContent: "center",
         cursor: "pointer",
+        flexShrink: 0,
       }}
     >
       {children}
@@ -24,30 +25,21 @@ export default function Footer() {
   return (
     <footer>
       {/* Kawali quote */}
-      <section style={{ background: "#0e7566", padding: "58px 48px" }}>
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "250px 1fr",
-            gap: "48px",
-            alignItems: "center",
-            maxWidth: "890px",
-            margin: "0 auto",
-          }}
-        >
+      <section className="px-sec" style={{ background: "#0e7566", paddingTop: "58px", paddingBottom: "58px" }}>
+        <div className="footer-kawali-grid">
           <div style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
             <Image
               src="/Vector.png"
               alt="Simbol Kawali"
               width={142}
               height={142}
-              style={{ width: "142px", height: "142px", objectFit: "contain" }}
+              style={{ width: "min(142px, 100%)", height: "auto", objectFit: "contain" }}
             />
           </div>
-          <div style={{ borderLeft: "1px solid rgba(255,255,255,.3)", paddingLeft: "48px" }}>
+          <div className="footer-kawali-right">
             <p
               className="serif-title"
-              style={{ fontSize: "23px", color: "#f3d45b", lineHeight: 1.35, marginBottom: "12px", fontWeight: 700 }}
+              style={{ fontSize: "20px", color: "#f3d45b", lineHeight: 1.4, marginBottom: "12px", fontWeight: 700 }}
             >
               hayua diponah-ponah, hayua dicawuh-cawuh
               <br />
@@ -56,7 +48,7 @@ export default function Footer() {
             <p
               className="ui-font"
               style={{
-                fontSize: "15px",
+                fontSize: "14px",
                 color: "rgba(255,255,255,.85)",
                 lineHeight: 1.7,
                 fontStyle: "italic",
@@ -78,17 +70,8 @@ export default function Footer() {
       </section>
 
       {/* Main footer */}
-      <section style={{ background: "#d64221", padding: "44px 48px 38px" }}>
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "1fr 1fr 1fr",
-            gap: "48px",
-            alignItems: "start",
-            maxWidth: "1010px",
-            margin: "0 auto",
-          }}
-        >
+      <section className="px-sec" style={{ background: "#d64221", paddingTop: "44px", paddingBottom: "38px" }}>
+        <div className="footer-main-grid">
           {/* Brand */}
           <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
             <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
@@ -97,13 +80,10 @@ export default function Footer() {
                 alt="Logo Nonoman Galuh"
                 width={43}
                 height={60}
-                style={{ objectFit: "contain", filter: "brightness(0) invert(1)" }}
+                style={{ objectFit: "contain", filter: "brightness(0) invert(1)", flexShrink: 0 }}
               />
               <div>
-                <h3
-                  className="ui-font"
-                  style={{ fontSize: "16px", fontWeight: 700, color: "#fffef9" }}
-                >
+                <h3 className="ui-font" style={{ fontSize: "15px", fontWeight: 700, color: "#fffef9", margin: 0 }}>
                   Pangauban Kawargian
                   <br />
                   Nonoman Galuh
@@ -122,7 +102,7 @@ export default function Footer() {
 
           {/* Social + visitor */}
           <div>
-            <div style={{ display: "flex", gap: "16px", marginBottom: "12px" }}>
+            <div style={{ display: "flex", gap: "12px", marginBottom: "16px", flexWrap: "wrap" }}>
               <SocialIcon>
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="white">
                   <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
@@ -159,7 +139,7 @@ export default function Footer() {
           <div>
             <h3
               className="serif-title"
-              style={{ fontSize: "20px", color: "#fffef9", marginBottom: "10px" }}
+              style={{ fontSize: "20px", color: "#fffef9", marginBottom: "10px", margin: "0 0 10px" }}
             >
               Beungkeutan Wadyabalad
             </h3>
@@ -179,7 +159,7 @@ export default function Footer() {
                 padding: "10px 28px",
                 borderRadius: "6px",
                 fontSize: "13px",
-                fontWeight: 600,
+                fontWeight: 700,
                 textDecoration: "none",
               }}
             >
@@ -195,12 +175,12 @@ export default function Footer() {
         style={{
           background: "#111",
           textAlign: "center",
-          padding: "16px",
+          padding: "16px 20px",
           fontSize: "12px",
           color: "rgba(255,255,255,.6)",
         }}
       >
-        Copyright@2025 | Pangauban Kawargian Nonoman Galuh
+        Copyright © 2025 | Pangauban Kawargian Nonoman Galuh
       </div>
     </footer>
   );

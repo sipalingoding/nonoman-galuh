@@ -43,8 +43,8 @@ function NewsCard({ item }: { item: (typeof beritaData)[number] }) {
     <article style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
       <div className="placeholder-block" style={{ width: "100%", aspectRatio: "1.08/1", borderRadius: 0 }} />
       <h3
-        className="ui-font"
-        style={{ fontSize: "16px", fontWeight: 500, color: "#4a3f30", lineHeight: 1.45 }}
+        className="decorative-font"
+        style={{ fontSize: "17.07px", fontWeight: 400, color: "#4a3f30", lineHeight: 1.5, margin: 0 }}
       >
         {item.judul}
       </h3>
@@ -81,17 +81,24 @@ function NewsCard({ item }: { item: (typeof beritaData)[number] }) {
 
 export default function BeritaInformasi() {
   return (
-    <section style={{ background: "#faf4e8", padding: "34px 48px 92px" }}>
-      <div style={{ textAlign: "center", marginBottom: "54px" }}>
+    <section className="px-sec" style={{ background: "#faf4e8", paddingTop: "34px", paddingBottom: "92px" }}>
+      <div style={{ textAlign: "center", marginBottom: "48px" }}>
         <h2
-          className="serif-title"
-          style={{ fontSize: "30px", fontWeight: 400, color: "#6f5f4c", marginBottom: "13px", lineHeight: 1.2 }}
+          className="decorative-font"
+          style={{ fontSize: "32.71px", fontWeight: 400, color: "#6f5f4c", marginBottom: "13px", lineHeight: 1.2 }}
         >
           Berita dan Informasi
         </h2>
         <p
-          className="ui-font"
-          style={{ fontSize: "13px", color: "#7a6a54", maxWidth: "610px", margin: "0 auto", lineHeight: 1.45, fontWeight: 600 }}
+          className="serif-title"
+          style={{
+            fontSize: "14.22px",
+            color: "#7a6a54",
+            maxWidth: "610px",
+            margin: "0 auto",
+            lineHeight: 1.55,
+            fontWeight: 400,
+          }}
         >
           Banyak informasi positif tentang kegiatan budaya yang sering luput dari perhatian kita.
           Pangauban Kawargian Nonoman Galuh hadir dengan misi untuk menyebarkan berbagai informasi
@@ -99,15 +106,7 @@ export default function BeritaInformasi() {
         </p>
       </div>
 
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(3, 1fr)",
-          gap: "32px",
-          maxWidth: "1010px",
-          margin: "0 auto",
-        }}
-      >
+      <div className="berita-grid">
         {beritaData.map((item) => (
           <NewsCard key={item.slug} item={item} />
         ))}
@@ -121,10 +120,10 @@ export default function BeritaInformasi() {
             display: "inline-block",
             background: "#d14e1f",
             color: "#fffef9",
-            padding: "9px 26px",
+            padding: "10px 28px",
             borderRadius: "999px",
             fontSize: "12px",
-            fontWeight: 600,
+            fontWeight: 700,
             textDecoration: "none",
           }}
         >

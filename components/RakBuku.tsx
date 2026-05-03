@@ -3,40 +3,25 @@ import Link from "next/link";
 
 export default function RakBuku() {
   return (
-    <section style={{ background: "#faf4e8", padding: "56px 48px 42px" }}>
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "43% 57%",
-          gap: "42px",
-          alignItems: "center",
-          maxWidth: "1010px",
-          margin: "0 auto",
-        }}
-      >
+    <section className="px-sec" style={{ background: "#faf4e8", paddingTop: "56px", paddingBottom: "42px" }}>
+      <div className="rakbuku-grid">
         {/* Left */}
         <div style={{ textAlign: "center" }}>
           <h2
-            className="serif-title"
-            style={{
-              fontSize: "31px",
-              fontWeight: 400,
-              color: "#6f5f4c",
-              marginBottom: "10px",
-              lineHeight: 1.2,
-            }}
+            className="decorative-font"
+            style={{ fontSize: "32.71px", fontWeight: 400, color: "#6f5f4c", marginBottom: "10px", lineHeight: 1.2 }}
           >
             Rak Buku – Bale Maos
           </h2>
           <p
-            className="ui-font"
+            className="serif-title"
             style={{
-              fontSize: "13px",
+              fontSize: "14.22px",
               color: "#7a6a54",
-              lineHeight: 1.45,
+              lineHeight: 1.55,
               margin: "0 auto 24px",
               maxWidth: "390px",
-              fontWeight: 500,
+              fontWeight: 300,
             }}
           >
             Bale Maos merupakan{" "}
@@ -47,15 +32,15 @@ export default function RakBuku() {
           </p>
           <Link
             href="/buku"
-            className="ui-font"
+            className="serif-title"
             style={{
               display: "inline-block",
               background: "#d14e1f",
               color: "#fffef9",
-              padding: "9px 32px",
+              padding: "10px 32px",
               borderRadius: "999px",
-              fontSize: "12px",
-              fontWeight: 600,
+              fontSize: "12.8px",
+              fontWeight: 300,
               textDecoration: "none",
             }}
           >
@@ -70,7 +55,8 @@ export default function RakBuku() {
             alt="Koleksi Buku Bale Maos"
             width={504}
             height={178}
-            style={{ width: "100%", maxWidth: "504px", height: "auto", borderRadius: "4px" }}
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 55vw, 504px"
+            style={{ width: "100%", height: "auto", borderRadius: "4px" }}
           />
         </div>
       </div>

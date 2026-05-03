@@ -1,5 +1,4 @@
 import { spawn } from "node:child_process";
-import { existsSync } from "node:fs";
 import { mkdir, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 
@@ -97,51 +96,25 @@ async function ensureDevManifests() {
   ]);
 }
 
-const nextDev = spawn("next", ["dev", "--webpack"], {
+console.log("Starting Next.js dev server...");
+
+await ensureDevManifests();
+
+const nextBin = join(root, "node_modules", "next", "dist", "bin", "next");
+const nextDev = spawn(process.execPath, [nextBin, "dev", "--webpack"], {
   stdio: "inherit",
   cwd: root,
-  shell: true,
   env: process.env,
 });
 
-let manifestTimer;
-
-function waitForFile(relativePath) {
-  return new Promise((resolve) => {
-    const attempt = () => {
-      if (existsSync(join(root, relativePath))) {
-        resolve();
-        return;
-      }
-      setTimeout(attempt, 250);
-    };
-    attempt();
-  });
-}
-
-waitForFile(".next/dev/server/app/page.js").then(() => {
-  ensureDevManifests().catch((error) => {
-    console.error("Failed to ensure Next dev manifests:", error);
-  });
-  manifestTimer = setInterval(() => {
-    ensureDevManifests().catch((error) => {
-      console.error("Failed to ensure Next dev manifests:", error);
-    });
-  }, 250);
-});
-
 function shutdown(signal) {
-  if (manifestTimer) clearInterval(manifestTimer);
   nextDev.kill(signal);
 }
 
 process.on("SIGINT", shutdown);
 process.on("SIGTERM", shutdown);
 
-console.log("Starting Next.js dev server...");
-
 nextDev.on("exit", (code, signal) => {
-  if (manifestTimer) clearInterval(manifestTimer);
   if (signal) {
     process.kill(process.pid, signal);
   } else {

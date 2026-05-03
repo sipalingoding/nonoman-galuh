@@ -15,28 +15,19 @@ const kategoriList = [
 
 export default function ArtikelBudaya() {
   return (
-    <section style={{ background: "#0e7566", minHeight: "445px", padding: "88px 48px" }}>
-      <div
-        style={{
-          maxWidth: "1010px",
-          margin: "0 auto",
-          display: "grid",
-          gridTemplateColumns: "1fr 1fr",
-          gap: "48px",
-          alignItems: "start",
-        }}
-      >
-        <div aria-hidden="true" />
+    <section className="px-sec" style={{ background: "#0e7566", minHeight: "445px", paddingTop: "88px", paddingBottom: "88px" }}>
+      <div className="artikel-grid">
+        <div aria-hidden="true" className="artikel-placeholder-col" />
         <div>
           <h2
-            className="serif-title"
-            style={{ fontSize: "30px", fontWeight: 400, color: "#fffef9", marginBottom: "8px", lineHeight: 1.2 }}
+            className="decorative-font"
+            style={{ fontSize: "32.71px", fontWeight: 400, color: "#fffef9", marginBottom: "8px", lineHeight: 1.2 }}
           >
             Artikel Budaya
           </h2>
           <p
-            className="ui-font"
-            style={{ fontSize: "12px", color: "rgba(255,255,255,.82)", lineHeight: 1.35, marginBottom: "26px" }}
+            className="serif-title"
+            style={{ fontSize: "14.22px", color: "rgba(255,255,255,.82)", lineHeight: 1.5, marginBottom: "26px", fontWeight: 400 }}
           >
             Catatan 10 Objek Pemajuan Kebudayaan di Tatar Galuh Ciamis
             <br />
@@ -47,19 +38,18 @@ export default function ArtikelBudaya() {
               <Link
                 href={`/artikel?kategori=${kategori.toLowerCase().replaceAll(" ", "-")}`}
                 key={kategori}
-                className="ui-font"
+                className="serif-title"
                 style={{
                   background: "#faf4e8",
                   border: "none",
                   borderRadius: "4px",
                   padding: "10px 16px",
-                  fontSize: "12px",
+                  fontSize: "11.38px",
                   fontWeight: 700,
                   color: "#0e7566",
                   textAlign: "center",
                   textDecoration: "none",
                   display: "block",
-                  transition: "background .2s, color .2s",
                 }}
               >
                 {kategori}

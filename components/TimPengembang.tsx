@@ -24,57 +24,41 @@ const kontributor = [
 function Entry({ role, name }: { role: string; name: string }) {
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: "2px" }}>
-      <span className="ui-font" style={{ fontSize: "12px", color: "#7a6a54" }}>{role}</span>
-      <span className="ui-font" style={{ fontSize: "14px", fontWeight: 700, color: "#2c2416" }}>{name}</span>
+      <span className="ui-font" style={{ fontSize: "11px", color: "#7a6a54" }}>{role}</span>
+      <span className="ui-font" style={{ fontSize: "13px", fontWeight: 700, color: "#2c2416" }}>{name}</span>
     </div>
   );
 }
 
 export default function TimPengembang() {
   return (
-    <section
-      style={{
-        background: "#faf4e8",
-        padding: "20px 48px 58px",
-      }}
-    >
+    <section className="px-sec" style={{ background: "#faf4e8", paddingTop: "20px", paddingBottom: "58px" }}>
       <div style={{ maxWidth: "1010px", margin: "0 auto" }}>
         <div style={{ display: "flex", alignItems: "center", gap: "32px", marginBottom: "28px" }}>
           <h2
             className="serif-title"
-            style={{ fontSize: "28px", fontWeight: 400, color: "#6f5f4c", whiteSpace: "nowrap", lineHeight: 1.2 }}
+            style={{ fontSize: "26px", fontWeight: 400, color: "#6f5f4c", whiteSpace: "nowrap", lineHeight: 1.2 }}
           >
             Tim Pengelola
           </h2>
           <div style={{ height: "1px", background: "rgba(209,78,31,.38)", flex: 1 }} />
         </div>
 
-        <div
-          style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "34px" }}
-        >
-          {/* Col 1 */}
-          <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
+        <div className="tim-grid">
+          <div style={{ display: "flex", flexDirection: "column", gap: "14px" }}>
             {col1.map((e) => <Entry key={e.name} {...e} />)}
           </div>
-
-          {/* Col 2 */}
-          <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
+          <div style={{ display: "flex", flexDirection: "column", gap: "14px" }}>
             {col2.map((e) => <Entry key={e.name} {...e} />)}
           </div>
-
-          {/* Col 3 */}
-          <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
+          <div style={{ display: "flex", flexDirection: "column", gap: "14px" }}>
             {col3.map((e) => <Entry key={e.name} {...e} />)}
           </div>
-
-          {/* Col 4: Kontributor */}
-          <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
-            <span className="ui-font" style={{ fontSize: "12px", color: "#7a6a54", fontWeight: 700 }}>
+          <div style={{ display: "flex", flexDirection: "column", gap: "14px" }}>
+            <span className="ui-font" style={{ fontSize: "11px", color: "#7a6a54", fontWeight: 700 }}>
               Kontributor:
             </span>
-            <div
-              style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "4px 24px" }}
-            >
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "4px 20px" }}>
               {kontributor.map((e) => <Entry key={e.name} {...e} />)}
             </div>
           </div>

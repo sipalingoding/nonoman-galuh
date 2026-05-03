@@ -8,7 +8,7 @@ const tokohData = [
 
 export default function WisataTokoh() {
   return (
-    <section style={{ background: "#faf4e8", padding: "0 48px 72px" }}>
+    <section className="px-sec" style={{ background: "#faf4e8", paddingBottom: "72px" }}>
       <div
         style={{
           maxWidth: "1010px",
@@ -16,21 +16,10 @@ export default function WisataTokoh() {
           borderTop: "1px solid rgba(209,78,31,.38)",
         }}
       />
-      <div
-        style={{
-          maxWidth: "1010px",
-          margin: "0 auto",
-          display: "grid",
-          gridTemplateColumns: "1fr 1fr",
-          gap: "60px",
-          alignItems: "start",
-        }}
-      >
+      <div className="wisata-grid">
         {/* Left: tokoh cards */}
         <div>
-          <div
-            style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "10px" }}
-          >
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "10px" }}>
             {tokohData.map((tokoh) => (
               <article
                 key={tokoh.nama}
@@ -38,13 +27,13 @@ export default function WisataTokoh() {
               >
                 <div className="placeholder-block" style={{ width: "100%", aspectRatio: ".78/1", borderRadius: 0 }} />
                 <div
-                  className="ui-font"
+                  className="serif-title"
                   style={{
                     background: "#0e7566",
                     color: "#fffef9",
-                    fontSize: "10px",
-                    fontWeight: 600,
-                    padding: "8px 8px",
+                    fontSize: "11.38px",
+                    fontWeight: 700,
+                    padding: "8px",
                     textAlign: "center",
                   }}
                 >
@@ -56,15 +45,15 @@ export default function WisataTokoh() {
           <div style={{ marginTop: "24px", textAlign: "center" }}>
             <Link
               href="/tokoh"
-              className="ui-font"
+              className="serif-title"
               style={{
                 display: "inline-block",
                 background: "#d14e1f",
                 color: "#fffef9",
-                padding: "9px 26px",
+                padding: "10px 28px",
                 borderRadius: "999px",
-                fontSize: "12px",
-                fontWeight: 600,
+                fontSize: "12.8px",
+                fontWeight: 300,
                 textDecoration: "none",
               }}
             >
@@ -76,9 +65,9 @@ export default function WisataTokoh() {
         {/* Right: text */}
         <div style={{ paddingTop: "2px" }}>
           <h2
-            className="serif-title"
+            className="decorative-font"
             style={{
-              fontSize: "30px",
+              fontSize: "32.71px",
               fontWeight: 400,
               color: "#6f5f4c",
               marginBottom: "16px",
@@ -88,8 +77,8 @@ export default function WisataTokoh() {
             Wanoh Ka Tokoh
           </h2>
           <p
-            className="ui-font"
-            style={{ fontSize: "13px", color: "#6b5e4c", lineHeight: 1.55, fontWeight: 500 }}
+            className="serif-title"
+            style={{ fontSize: "14.22px", color: "#6b5e4c", lineHeight: 1.65, fontWeight: 300 }}
           >
             Direktori informasi mengenai{" "}
             <strong style={{ color: "#2c2416", fontWeight: 700 }}>
@@ -98,9 +87,9 @@ export default function WisataTokoh() {
             yang telah berperan penting dalam perjalanan sejarah Nusantara dan Indonesia.
             <br />
             <br />
-            Melalui direktori ini, diharapkan masyarakat dapat mengenal lebih dekat sosok-sosok inspiratif
-            dari Galuh—baik di bidang budaya, pemerintahan, pendidikan, maupun perjuangan—yang turut
-            mewarnai dan memberikan sumbangsih berharga bagi kemajuan bangsa.
+            Melalui direktori ini, diharapkan masyarakat dapat mengenal lebih dekat sosok-sosok
+            inspiratif dari Galuh—baik di bidang budaya, pemerintahan, pendidikan, maupun
+            perjuangan—yang turut mewarnai dan memberikan sumbangsih berharga bagi kemajuan bangsa.
           </p>
         </div>
       </div>

@@ -4,13 +4,14 @@ import Link from "next/link";
 export default function Hero() {
   return (
     <section
+      className="hero-section"
       style={{
         backgroundColor: "#c8341f",
-        height: "582px",
         position: "relative",
         overflow: "hidden",
       }}
     >
+      {/* Cloud decoration */}
       <div
         style={{
           position: "absolute",
@@ -32,38 +33,17 @@ export default function Hero() {
         />
       </div>
 
-      <div
-        style={{
-          width: "min(calc(100% - 180px), 1110px)",
-          height: "100%",
-          margin: "0 auto",
-          display: "grid",
-          gridTemplateColumns: "45% 55%",
-          position: "relative",
-        }}
-      >
-        {/* Left */}
-        <div
-          style={{
-            paddingLeft: "50px",
-            paddingTop: 0,
-            paddingBottom: "108px",
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-            gap: "20px",
-            position: "relative",
-            zIndex: 5,
-          }}
-        >
+      <div className="hero-grid">
+        {/* Left column */}
+        <div className="hero-left">
           <h1
-            className="decorative-font"
+            className="decorative-font hero-h1"
             style={{
-              fontSize: "58px",
               color: "#fffef9",
               fontWeight: 400,
               lineHeight: 1.05,
               letterSpacing: 0,
+              margin: 0,
             }}
           >
             Nata Salira,
@@ -73,17 +53,18 @@ export default function Hero() {
             Nata Buana
           </h1>
 
-          <div style={{ display: "flex", alignItems: "center", gap: "18px", width: "430px" }}>
+          <div className="hero-divider-row">
             <Link
               href="/tentang"
+              className="serif-title"
               style={{
                 display: "inline-block",
                 flexShrink: 0,
                 background: "#f6de66",
                 color: "#7f3a21",
-                padding: "12px 31px",
+                padding: "12px 28px",
                 borderRadius: "999px",
-                fontSize: "13px",
+                fontSize: "14.92px",
                 fontWeight: 700,
                 textDecoration: "none",
                 whiteSpace: "nowrap",
@@ -97,61 +78,63 @@ export default function Hero() {
           <p
             className="serif-title"
             style={{
-              fontSize: "13px",
+              fontSize: "13.33px",
               color: "#fffef9",
-              maxWidth: "410px",
-              lineHeight: 1.48,
-              fontWeight: 600,
-              marginTop: "-10px",
+              maxWidth: "100%",
+              lineHeight: 1.55,
+              fontWeight: 400,
+              marginTop: "-6px",
             }}
           >
-            <strong style={{ color: "#fffef9", fontWeight: 800 }}>Nonoman Galuh</strong>{" "}
-            merupakan lembaga kebudayaan yang berkomitmen untuk turut serta memperkenalkan warisan leluhur
-            Galuh kepada generasi muda dalam rangka memperkuat identitas dan membangun ekosistem budaya
-            daerah yang inklusif.
+            <strong style={{ color: "#fffef9", fontWeight: 700 }}>Nonoman Galuh</strong>{" "}
+            merupakan lembaga kebudayaan yang berkomitmen untuk turut serta memperkenalkan warisan
+            leluhur Galuh kepada generasi muda dalam rangka memperkuat identitas dan membangun
+            ekosistem budaya daerah yang inklusif.
           </p>
         </div>
 
-        {/* Right */}
-        <div style={{ position: "relative", overflow: "visible" }}>
-          <div
-            style={{
-              position: "absolute",
-              top: "54px",
-              left: "34px",
-              width: "615px",
-              height: "438px",
-              zIndex: 2,
-            }}
-          >
-            <Image
-              src="/mountains-circle.png"
-              alt="Pemandangan Gunung"
-              fill
-              sizes="615px"
-              style={{ objectFit: "contain" }}
-              loading="eager"
-            />
-          </div>
+        {/* Right column — scales down on tablet, shows below text on mobile */}
+        <div className="hero-right-col" style={{ position: "relative", overflow: "hidden" }}>
+          <div className="hero-imgs-wrapper">
+            <div
+              style={{
+                position: "absolute",
+                top: "54px",
+                left: "34px",
+                width: "615px",
+                height: "438px",
+                zIndex: 2,
+              }}
+            >
+              <Image
+                src="/mountains-circle.png"
+                alt="Pemandangan Gunung"
+                fill
+                sizes="615px"
+                style={{ objectFit: "contain" }}
+                loading="eager"
+              />
+            </div>
 
-          <div
-            style={{
-              position: "absolute",
-              bottom: "52px",
-              left: "118px",
-              width: "500px",
-              height: "410px",
-              zIndex: 3,
-            }}
-          >
-            <Image
-              src="/Rectangle.png"
-              alt="Gerbang Candi"
-              fill
-              sizes="500px"
-              style={{ objectFit: "contain", objectPosition: "bottom center" }}
-              loading="eager"
-            />
+            <div
+              style={{
+                position: "absolute",
+                bottom: "52px",
+                left: "110px",
+                width: "500px",
+                height: "410px",
+                zIndex: 3,
+              }}
+            >
+              <Image
+                src="/Rectangle.png"
+                alt="Gerbang Candi"
+                fill
+                sizes="500px"
+                style={{ objectFit: "contain", objectPosition: "bottom center" }}
+                loading="eager"
+              />
+            </div>
           </div>
         </div>
       </div>
