@@ -1,12 +1,30 @@
 import Image from "next/image";
 import Link from "next/link";
+import { createClient } from "@/lib/supabase/server";
 
-const agendaData = [
-  { tanggal: "Ciamis, 08 Maret 2025 s/d\n06 Mei 2025" },
-  { tanggal: "Ciamis, 04 Oktober 2024 s/d\n04 Oktober 2024" },
-];
+export default async function AgendaBudaya() {
+  const supabase = await createClient();
+  const { data: agendaData } = await supabase
+    .from("agenda")
+    .select("id, nama, tanggal, gambar_url, slug")
+    .order("created_at", { ascending: false })
+    .limit(2);
 
-export default function AgendaBudaya() {
+  const items = agendaData ?? [];
+
+  const displayItems =
+    items.length >= 2
+      ? items
+      : [
+          ...items,
+          ...Array.from({ length: 2 - items.length }, (_, i) => ({
+            id: `placeholder-${i}`,
+            nama: "",
+            tanggal: "",
+            gambar_url: null as string | null,
+          })),
+        ];
+
   return (
     <section className="px-sec" style={{ background: "#faf4e8", paddingTop: "78px", paddingBottom: "62px" }}>
       <div className="agenda-grid">
@@ -52,26 +70,40 @@ export default function AgendaBudaya() {
               marginBottom: "22px",
             }}
           >
-            {agendaData.map((agenda, i) => (
-              <article key={i} style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
-                <div
-                  className="placeholder-block"
-                  style={{ width: "100%", aspectRatio: ".78/1", borderRadius: 0 }}
-                />
-                <p
-                  className="serif-title"
-                  style={{
-                    fontSize: "9.96px",
-                    fontWeight: 300,
-                    color: "#8a7962",
-                    textAlign: "center",
-                    whiteSpace: "pre-line",
-                  }}
-                >
-                  {agenda.tanggal}
-                </p>
-              </article>
-            ))}
+            {displayItems.map((agenda, i) => {
+              const href = (agenda as any).slug ? `/agenda/${(agenda as any).slug}` : "/agenda";
+              return (
+                <article key={agenda.id ?? i} style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
+                  <Link href={href} style={{ textDecoration: "none", display: "flex", flexDirection: "column", gap: "8px" }}>
+                    <div style={{ width: "100%", aspectRatio: ".78/1", position: "relative", overflow: "hidden" }}>
+                      {agenda.gambar_url ? (
+                        <Image
+                          src={agenda.gambar_url}
+                          alt={agenda.nama || "Agenda"}
+                          fill
+                          sizes="(max-width: 640px) 50vw, 200px"
+                          style={{ objectFit: "cover" }}
+                        />
+                      ) : (
+                        <div className="placeholder-block" style={{ width: "100%", height: "100%" }} />
+                      )}
+                    </div>
+                    <p
+                      className="serif-title"
+                      style={{
+                        fontSize: "9.96px",
+                        fontWeight: 300,
+                        color: "#8a7962",
+                        textAlign: "center",
+                        whiteSpace: "pre-line",
+                      }}
+                    >
+                      {agenda.tanggal || "—"}
+                    </p>
+                  </Link>
+                </article>
+              );
+            })}
           </div>
 
           <Link

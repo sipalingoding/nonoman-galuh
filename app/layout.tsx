@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Inter, Merriweather, Nunito_Sans, ZCOOL_XiaoWei } from "next/font/google";
 import "./globals.css";
 
@@ -26,6 +26,11 @@ const zcoolXiaoWei = ZCOOL_XiaoWei({
   variable: "--font-zcool-xiaowei",
   display: "swap",
 });
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+};
 
 export const metadata: Metadata = {
   title: "Nonoman Galuh — Platform Kebudayaan",

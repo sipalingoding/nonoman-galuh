@@ -87,20 +87,56 @@ main {
   border-radius: 6px;
 }
 
+/* ─── Dashboard ─────────────────────────────────────────────────────── */
+.sidebar-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  color: rgba(255,255,255,.75);
+  text-decoration: none;
+  font-size: 13px;
+  margin-bottom: 2px;
+  transition: background .15s, color .15s;
+}
+.sidebar-link:hover {
+  background-color: rgba(255,255,255,.08);
+  color: #fffef9;
+}
+.sidebar-logout {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  background-color: rgba(200,52,31,.15);
+  border: 1px solid rgba(200,52,31,.3);
+  color: #f87171;
+  font-size: 13px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background .15s;
+}
+.sidebar-logout:hover {
+  background-color: rgba(200,52,31,.25);
+}
+
 /* ─── Responsive Layout ─────────────────────────────────────────────── */
 
 /* Section horizontal padding */
-.px-sec { padding-left: 48px; padding-right: 48px; }
+.px-sec { padding-left: 32px; padding-right: 32px; }
 
 /* Navbar — only responsive width, flex layout stays inline */
 .navbar-w {
-  width: min(calc(100% - 180px), 1110px);
+  width: min(calc(100% - 80px), 1280px);
 }
 
 /* Hero */
 .hero-section { height: 582px; }
 .hero-grid {
-  width: min(calc(100% - 180px), 1110px);
+  width: min(calc(100% - 80px), 1280px);
   height: 100%;
   margin: 0 auto;
   display: grid;
@@ -120,6 +156,12 @@ main {
 }
 .hero-h1 { font-size: 58px; }
 .hero-divider-row { display: flex; align-items: center; gap: 18px; width: 430px; }
+
+/* Cloud */
+.hero-cloud { width: 385px; height: 285px; }
+
+/* Button + deskripsi — desktop: dorong ke bawah via flex */
+.hero-bottom { margin-top: auto; }
 
 /* Hero illustration wrapper — absolute, sized to hold desktop images */
 .hero-imgs-wrapper {
@@ -150,7 +192,7 @@ main {
 
 /* Grids */
 .agenda-grid {
-  max-width: 1010px; margin: 0 auto;
+  max-width: 1200px; margin: 0 auto;
   display: grid; grid-template-columns: 1fr 443px;
   align-items: start; gap: 55px;
 }
@@ -158,30 +200,30 @@ main {
 
 .berita-grid {
   display: grid; grid-template-columns: repeat(3, 1fr);
-  gap: 32px; max-width: 1010px; margin: 0 auto;
+  gap: 32px; max-width: 1200px; margin: 0 auto;
 }
 
 .wisata-grid {
-  max-width: 1010px; margin: 0 auto;
+  max-width: 1200px; margin: 0 auto;
   display: grid; grid-template-columns: 1fr 1fr;
   gap: 60px; align-items: start;
 }
 
 .artikel-grid {
-  max-width: 1010px; margin: 0 auto;
+  max-width: 1200px; margin: 0 auto;
   display: grid; grid-template-columns: 1fr 1fr;
   gap: 48px; align-items: start;
 }
 
 .youtube-grid {
   display: grid; grid-template-columns: repeat(3, 1fr);
-  gap: 30px; max-width: 1010px; margin: 0 auto;
+  gap: 30px; max-width: 1200px; margin: 0 auto;
 }
 
 .rakbuku-grid {
   display: grid; grid-template-columns: 43% 57%;
   gap: 42px; align-items: center;
-  max-width: 1010px; margin: 0 auto;
+  max-width: 1200px; margin: 0 auto;
 }
 
 .tim-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 34px; }
@@ -189,14 +231,14 @@ main {
 .footer-kawali-grid {
   display: grid; grid-template-columns: 250px 1fr;
   gap: 48px; align-items: center;
-  max-width: 890px; margin: 0 auto;
+  max-width: 1060px; margin: 0 auto;
 }
 .footer-kawali-right { border-left: 1px solid rgba(255,255,255,.3); padding-left: 48px; }
 
 .footer-main-grid {
   display: grid; grid-template-columns: 1fr 1fr 1fr;
   gap: 48px; align-items: start;
-  max-width: 1010px; margin: 0 auto;
+  max-width: 1200px; margin: 0 auto;
 }
 
 /* ─── Tablet (≤ 1024px) ──────────────────────────────────────────── */
@@ -207,7 +249,8 @@ main {
   .hero-left { padding-left: 0; }
   .hero-h1 { font-size: 46px; }
   .hero-divider-row { width: 100%; max-width: 380px; }
-  .hero-imgs-wrapper { transform: scale(0.65); transform-origin: top left; }
+  .hero-cloud { width: 240px; height: 178px; }
+  .hero-imgs-wrapper { transform: scale(0.52); transform-origin: top left; }
   .stats-pill { width: calc(100% - 96px); padding: 0 40px; }
   .agenda-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
   .agenda-right { width: 100%; height: 400px; }
@@ -240,11 +283,13 @@ main {
   .hero-right-col {
     display: block;
     width: 100%;
-    height: 320px;
+    height: 340px;
     overflow: hidden;
     position: relative;
   }
-  .hero-imgs-wrapper { transform: scale(0.5); transform-origin: top left; }
+  .hero-cloud { width: 140px; height: 104px; }
+  .hero-bottom { margin-top: 0; }
+  .hero-imgs-wrapper { transform: scale(0.5); transform-origin: top left; left: 0; }
 
   .stats-bar-section { height: auto; padding: 20px 20px 28px; }
   .stats-pill {

@@ -13,12 +13,11 @@ export default function Hero() {
     >
       {/* Cloud decoration */}
       <div
+        className="hero-cloud"
         style={{
           position: "absolute",
           top: 0,
           right: 0,
-          width: "385px",
-          height: "285px",
           zIndex: 4,
           pointerEvents: "none",
         }}
@@ -72,7 +71,13 @@ export default function Hero() {
             >
               Tentang Kami
             </Link>
-            <div style={{ flex: 1, height: "2px", background: "rgba(246,222,102,.7)" }} />
+            <div
+              style={{
+                flex: 1,
+                height: "2px",
+                background: "rgba(246,222,102,.7)",
+              }}
+            />
           </div>
 
           <p
@@ -86,32 +91,40 @@ export default function Hero() {
               marginTop: "-6px",
             }}
           >
-            <strong style={{ color: "#fffef9", fontWeight: 700 }}>Nonoman Galuh</strong>{" "}
-            merupakan lembaga kebudayaan yang berkomitmen untuk turut serta memperkenalkan warisan
-            leluhur Galuh kepada generasi muda dalam rangka memperkuat identitas dan membangun
-            ekosistem budaya daerah yang inklusif.
+            <strong style={{ color: "#fffef9", fontWeight: 700 }}>
+              Nonoman Galuh
+            </strong>{" "}
+            merupakan lembaga kebudayaan yang berkomitmen untuk turut serta
+            memperkenalkan warisan leluhur Galuh kepada generasi muda dalam
+            rangka memperkuat identitas dan membangun ekosistem budaya daerah
+            yang inklusif.
           </p>
         </div>
 
         {/* Right column — scales down on tablet, shows below text on mobile */}
-        <div className="hero-right-col" style={{ position: "relative", overflow: "hidden" }}>
+        <div
+          className="hero-right-col"
+          style={{ position: "relative", overflow: "hidden" }}
+        >
           <div className="hero-imgs-wrapper">
             <div
               style={{
                 position: "absolute",
-                top: "54px",
-                left: "34px",
-                width: "615px",
-                height: "438px",
+                top: "0px",
+                left: "80px",
+                width: "600px",
+                height: "600px",
                 zIndex: 2,
+                borderRadius: "50%",
+                overflow: "hidden",
               }}
             >
               <Image
                 src="/mountains-circle.png"
                 alt="Pemandangan Gunung"
                 fill
-                sizes="615px"
-                style={{ objectFit: "contain" }}
+                sizes="600px"
+                style={{ objectFit: "cover" }}
                 loading="eager"
               />
             </div>
@@ -119,10 +132,10 @@ export default function Hero() {
             <div
               style={{
                 position: "absolute",
-                bottom: "52px",
-                left: "110px",
-                width: "500px",
-                height: "410px",
+                bottom: "40px",
+                left: "60px",
+                width: "640px",
+                height: "540px",
                 zIndex: 3,
               }}
             >
@@ -130,8 +143,11 @@ export default function Hero() {
                 src="/Rectangle.png"
                 alt="Gerbang Candi"
                 fill
-                sizes="500px"
-                style={{ objectFit: "contain", objectPosition: "bottom center" }}
+                sizes="640px"
+                style={{
+                  objectFit: "contain",
+                  objectPosition: "bottom center",
+                }}
                 loading="eager"
               />
             </div>

@@ -1,12 +1,27 @@
+import Image from "next/image";
 import Link from "next/link";
+import { createClient } from "@/lib/supabase/server";
 
-const tokohData = [
-  { nama: "Mr. Iwa Kusumasumantri" },
-  { nama: "R.A. Kurnianingrat" },
-  { nama: "Rd. Ema Bratakusumah" },
-];
+export default async function WisataTokoh() {
+  const supabase = await createClient();
+  const { data: tokohData } = await supabase
+    .from("tokoh")
+    .select("id, nama, jabatan, foto_url, slug")
+    .order("created_at", { ascending: false })
+    .limit(3);
 
-export default function WisataTokoh() {
+  const items = tokohData ?? [];
+
+  const displayItems =
+    items.length >= 3
+      ? items
+      : [
+          ...items,
+          ...Array(3 - items.length)
+            .fill(null)
+            .map((_, i) => ({ id: `placeholder-${i}`, nama: "", jabatan: "", foto_url: null as string | null, slug: null as string | null })),
+        ];
+
   return (
     <section className="px-sec" style={{ background: "#faf4e8", paddingBottom: "72px" }}>
       <div
@@ -20,27 +35,49 @@ export default function WisataTokoh() {
         {/* Left: tokoh cards */}
         <div>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "10px" }}>
-            {tokohData.map((tokoh) => (
-              <article
-                key={tokoh.nama}
-                style={{ display: "flex", flexDirection: "column", borderRadius: "6px", overflow: "hidden" }}
-              >
-                <div className="placeholder-block" style={{ width: "100%", aspectRatio: ".78/1", borderRadius: 0 }} />
-                <div
-                  className="serif-title"
-                  style={{
-                    background: "#0e7566",
-                    color: "#fffef9",
-                    fontSize: "11.38px",
-                    fontWeight: 700,
-                    padding: "8px",
-                    textAlign: "center",
-                  }}
+            {displayItems.map((tokoh) => {
+              const href = (tokoh as any).slug ? `/tokoh/${(tokoh as any).slug}` : "/tokoh";
+              const Wrapper = tokoh.nama ? Link : "div";
+              return (
+                <article
+                  key={tokoh.id}
+                  style={{ display: "flex", flexDirection: "column", borderRadius: "6px", overflow: "hidden" }}
                 >
-                  {tokoh.nama}
-                </div>
-              </article>
-            ))}
+                  <Wrapper href={href as string} style={{ textDecoration: "none", display: "flex", flexDirection: "column" }}>
+                    <div style={{ width: "100%", aspectRatio: ".78/1", position: "relative", overflow: "hidden" }}>
+                      {tokoh.foto_url ? (
+                        <Image
+                          src={tokoh.foto_url}
+                          alt={tokoh.nama || "Tokoh"}
+                          fill
+                          sizes="(max-width: 640px) 33vw, 150px"
+                          style={{ objectFit: "cover", objectPosition: "top center" }}
+                        />
+                      ) : (
+                        <div className="placeholder-block" style={{ width: "100%", height: "100%" }} />
+                      )}
+                    </div>
+                    <div
+                      className="serif-title"
+                      style={{
+                        background: "#0e7566",
+                        color: "#fffef9",
+                        fontSize: "11.38px",
+                        fontWeight: 700,
+                        padding: "8px",
+                        textAlign: "center",
+                        minHeight: "34px",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                      }}
+                    >
+                      {tokoh.nama || "—"}
+                    </div>
+                  </Wrapper>
+                </article>
+              );
+            })}
           </div>
           <div style={{ marginTop: "24px", textAlign: "center" }}>
             <Link

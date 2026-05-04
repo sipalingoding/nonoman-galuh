@@ -1,25 +1,4 @@
-const col1 = [
-  { role: "Penanggungjawab", name: "Tendi Nugraha" },
-  { role: "Pengelola Konten", name: "Ahmad Rizky Fauzi" },
-  { role: "Administrator Website", name: "A. Nenda Makhtun MK" },
-];
-
-const col2 = [
-  { role: "Editor/Proofreader", name: "Eggy Aditiar" },
-  { role: "Technical Support", name: "Tata Tarmana" },
-  { role: "Visual Desainer/Illustrator", name: "Bagus Indra Baitullah" },
-];
-
-const col3 = [
-  { role: "Sosial Media & Promosi", name: "W. Rio Wijaya" },
-];
-
-const kontributor = [
-  { role: "Ciamis Kulon", name: "Pasca Adha Pratama" },
-  { role: "Ciamis Kidul", name: "Eka Wijaya Permana" },
-  { role: "Ciamis Kaler", name: "Nu'man Yazid" },
-  { role: "Ciamis Wetan", name: "Lu'luatun Nazmi" },
-];
+import { createClient } from "@/lib/supabase/server";
 
 function Entry({ role, name }: { role: string; name: string }) {
   return (
@@ -30,7 +9,55 @@ function Entry({ role, name }: { role: string; name: string }) {
   );
 }
 
-export default function TimPengembang() {
+// Fallback data used when DB is empty
+const fallbackPengelola = [
+  { jabatan: "Penanggungjawab", nama: "Tendi Nugraha" },
+  { jabatan: "Pengelola Konten", nama: "Ahmad Rizky Fauzi" },
+  { jabatan: "Administrator Website", nama: "A. Nenda Makhtun MK" },
+  { jabatan: "Editor/Proofreader", nama: "Eggy Aditiar" },
+  { jabatan: "Technical Support", nama: "Tata Tarmana" },
+  { jabatan: "Visual Desainer/Illustrator", nama: "Bagus Indra Baitullah" },
+  { jabatan: "Sosial Media & Promosi", nama: "W. Rio Wijaya" },
+];
+
+const fallbackKontributor = [
+  { jabatan: "Ciamis Kulon", nama: "Pasca Adha Pratama" },
+  { jabatan: "Ciamis Kidul", nama: "Eka Wijaya Permana" },
+  { jabatan: "Ciamis Kaler", nama: "Nu'man Yazid" },
+  { jabatan: "Ciamis Wetan", nama: "Lu'luatun Nazmi" },
+];
+
+export default async function TimPengembang() {
+  const supabase = await createClient();
+  const { data: rows } = await supabase
+    .from("tim_pengelola")
+    .select("id, nama, jabatan, tipe, wilayah, urutan")
+    .order("tipe", { ascending: true }) // kontributor < pengelola alphabetically; we'll sort manually
+    .order("urutan", { ascending: true });
+
+  // Split by tipe
+  const pengelola = rows?.filter((r) => r.tipe === "pengelola") ?? [];
+  const kontributor = rows?.filter((r) => r.tipe === "kontributor") ?? [];
+
+  // Use fallback if DB is empty
+  const useFallback = !rows || rows.length === 0;
+  const pengelolaList = useFallback
+    ? fallbackPengelola
+    : pengelola.map((r) => ({ jabatan: r.jabatan ?? "", nama: r.nama ?? "" }));
+  const kontributorList = useFallback
+    ? fallbackKontributor
+    : kontributor.map((r) => ({
+        jabatan: r.wilayah ?? r.jabatan ?? "",
+        nama: r.nama ?? "",
+      }));
+
+  // Chunk pengelola into groups of 3 columns
+  const COLS = 3;
+  const cols: typeof pengelolaList[] = [[], [], []];
+  pengelolaList.forEach((item, i) => {
+    cols[i % COLS].push(item);
+  });
+
   return (
     <section className="px-sec" style={{ background: "#faf4e8", paddingTop: "20px", paddingBottom: "58px" }}>
       <div style={{ maxWidth: "1010px", margin: "0 auto" }}>
@@ -45,21 +72,21 @@ export default function TimPengembang() {
         </div>
 
         <div className="tim-grid">
-          <div style={{ display: "flex", flexDirection: "column", gap: "14px" }}>
-            {col1.map((e) => <Entry key={e.name} {...e} />)}
-          </div>
-          <div style={{ display: "flex", flexDirection: "column", gap: "14px" }}>
-            {col2.map((e) => <Entry key={e.name} {...e} />)}
-          </div>
-          <div style={{ display: "flex", flexDirection: "column", gap: "14px" }}>
-            {col3.map((e) => <Entry key={e.name} {...e} />)}
-          </div>
+          {cols.map((col, ci) => (
+            <div key={ci} style={{ display: "flex", flexDirection: "column", gap: "14px" }}>
+              {col.map((e) => (
+                <Entry key={e.nama} role={e.jabatan} name={e.nama} />
+              ))}
+            </div>
+          ))}
           <div style={{ display: "flex", flexDirection: "column", gap: "14px" }}>
             <span className="ui-font" style={{ fontSize: "11px", color: "#7a6a54", fontWeight: 700 }}>
               Kontributor:
             </span>
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "4px 20px" }}>
-              {kontributor.map((e) => <Entry key={e.name} {...e} />)}
+              {kontributorList.map((e) => (
+                <Entry key={e.nama} role={e.jabatan} name={e.nama} />
+              ))}
             </div>
           </div>
         </div>

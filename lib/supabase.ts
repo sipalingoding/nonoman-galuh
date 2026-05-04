@@ -1,7 +1,7 @@
 import { createClient } from "@supabase/supabase-js";
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
-const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
+const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY!;
 
 export const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
@@ -72,6 +72,28 @@ export type Database = {
         };
         Insert: Omit<Database["public"]["Tables"]["buku"]["Row"], "id" | "created_at">;
         Update: Partial<Database["public"]["Tables"]["buku"]["Insert"]>;
+      };
+      kanal_youtube: {
+        Row: {
+          id: string;
+          url: string;
+          created_at: string;
+        };
+        Insert: Omit<Database["public"]["Tables"]["kanal_youtube"]["Row"], "id" | "created_at">;
+        Update: Partial<Database["public"]["Tables"]["kanal_youtube"]["Insert"]>;
+      };
+      tim_pengelola: {
+        Row: {
+          id: string;
+          nama: string | null;
+          jabatan: string | null;
+          tipe: "pengelola" | "kontributor" | null;
+          wilayah: string | null;
+          urutan: number;
+          created_at: string;
+        };
+        Insert: Omit<Database["public"]["Tables"]["tim_pengelola"]["Row"], "id" | "created_at">;
+        Update: Partial<Database["public"]["Tables"]["tim_pengelola"]["Insert"]>;
       };
     };
   };

@@ -1,22 +1,55 @@
 import Image from "next/image";
+import { createClient } from "@/lib/supabase/server";
 
-const videoData = [
-  { title: "Ngaguar Salayar", episode: "Eps. I – IKET Sunda dalam Lintasan Zaman", url: "https://www.youtube.com/watch?v=HKvJGh9ZzK4" },
-  { title: "Ngaguar Salayar", episode: "Eps. I – IKET Sunda dalam Lintasan Zaman", url: "https://www.youtube.com/watch?v=uMELDhbNQCY" },
-  { title: "Ngaguar Salayar", episode: "Eps. I – IKET Sunda dalam Lintasan Zaman", url: "https://www.youtube.com/watch?v=z0kU1Nc7gCs" },
+const FALLBACK_URLS = [
+  "https://www.youtube.com/watch?v=HKvJGh9ZzK4",
+  "https://www.youtube.com/watch?v=uMELDhbNQCY",
+  "https://www.youtube.com/watch?v=z0kU1Nc7gCs",
 ];
 
 function getVideoId(url: string) {
-  return new URL(url).searchParams.get("v") ?? "";
+  try {
+    return new URL(url).searchParams.get("v") ?? "";
+  } catch {
+    return "";
+  }
 }
 
-function VideoCard({ video }: { video: (typeof videoData)[number] }) {
-  const videoId = getVideoId(video.url);
-  const thumbnail = `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
+async function fetchVideoTitle(url: string): Promise<{ title: string; subtitle: string }> {
+  try {
+    const res = await fetch(
+      `https://www.youtube.com/oembed?url=${encodeURIComponent(url)}&format=json`,
+      { next: { revalidate: 3600 } }
+    );
+    const data = await res.json();
+    const full: string = data.title ?? "";
+    const dashIdx = full.indexOf(" – ");
+    if (dashIdx !== -1) {
+      return { title: full.slice(0, dashIdx), subtitle: full.slice(dashIdx + 3) };
+    }
+    return { title: full, subtitle: "" };
+  } catch {
+    return { title: "", subtitle: "" };
+  }
+}
+
+function VideoCard({
+  url,
+  title,
+  subtitle,
+}: {
+  url: string;
+  title: string;
+  subtitle: string;
+}) {
+  const videoId = getVideoId(url);
+  const thumbnail = videoId
+    ? `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`
+    : "";
 
   return (
     <a
-      href={video.url}
+      href={url}
       target="_blank"
       rel="noopener noreferrer"
       style={{
@@ -32,13 +65,15 @@ function VideoCard({ video }: { video: (typeof videoData)[number] }) {
       }}
     >
       {/* Thumbnail */}
-      <Image
-        src={thumbnail}
-        alt={video.title}
-        fill
-        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-        style={{ objectFit: "cover" }}
-      />
+      {thumbnail && (
+        <Image
+          src={thumbnail}
+          alt={title}
+          fill
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+          style={{ objectFit: "cover" }}
+        />
+      )}
 
       {/* Overlay gelap */}
       <div
@@ -98,20 +133,35 @@ function VideoCard({ video }: { video: (typeof videoData)[number] }) {
           className="decorative-font"
           style={{ fontSize: "17.07px", color: "#fffef9", fontWeight: 400, lineHeight: 1.1 }}
         >
-          {video.title}
+          {title}
         </div>
-        <div
-          className="serif-title"
-          style={{ fontSize: "9.96px", fontWeight: 300, color: "rgba(255,255,255,.78)", marginTop: "4px" }}
-        >
-          {video.episode}
-        </div>
+        {subtitle && (
+          <div
+            className="serif-title"
+            style={{ fontSize: "9.96px", fontWeight: 300, color: "rgba(255,255,255,.78)", marginTop: "4px" }}
+          >
+            {subtitle}
+          </div>
+        )}
       </div>
     </a>
   );
 }
 
-export default function KanalYoutube() {
+export default async function KanalYoutube() {
+  const supabase = await createClient();
+  const { data: rows } = await supabase
+    .from("kanal_youtube")
+    .select("url")
+    .order("created_at", { ascending: false })
+    .limit(3);
+
+  const videoUrls = rows && rows.length > 0 ? rows.map((r) => r.url) : FALLBACK_URLS;
+
+  const videos = await Promise.all(
+    videoUrls.map(async (url) => ({ url, ...(await fetchVideoTitle(url)) }))
+  );
+
   return (
     <section className="px-sec" style={{ background: "#d64221", paddingTop: "54px", paddingBottom: "72px" }}>
       <div style={{ textAlign: "center", margin: "0 auto 32px", maxWidth: "1010px" }}>
@@ -129,8 +179,8 @@ export default function KanalYoutube() {
       </div>
 
       <div className="youtube-grid">
-        {videoData.map((video, i) => (
-          <VideoCard key={i} video={video} />
+        {videos.map((video, i) => (
+          <VideoCard key={i} url={video.url} title={video.title} subtitle={video.subtitle} />
         ))}
       </div>
     </section>

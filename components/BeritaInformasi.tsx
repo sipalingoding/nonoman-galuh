@@ -1,22 +1,6 @@
+import Image from "next/image";
 import Link from "next/link";
-
-const beritaData = [
-  {
-    judul: "Kang Dedi Mulyadi: \"Kata siapa Ciamis intoleran? Ciamis itu justru contoh dari toleransi yang nyata di Indonesia\"",
-    tanggal: "27 September 2025",
-    slug: "kang-dedi-mulyadi-ciamis-toleransi",
-  },
-  {
-    judul: "Galuh Nanjeur di Dayeuh Indung: KMC Galuh Taruna Raih Juara Pertama dalam Pagelaran Budaya UIN Sunan Gunung Djati Bandung",
-    tanggal: "27 September 2025",
-    slug: "kmc-galuh-taruna-juara-pertama",
-  },
-  {
-    judul: "Raden Ema Bratakusumah: Tokoh Asal Tatar Galuh Ciamis yang membangkitkan Pencak Silat di Jawa Barat",
-    tanggal: "25 September 2025",
-    slug: "raden-ema-bratakusumah-pencak-silat",
-  },
-];
+import { createClient } from "@/lib/supabase/server";
 
 function ShareIcon({ children }: { children: React.ReactNode }) {
   return (
@@ -38,16 +22,30 @@ function ShareIcon({ children }: { children: React.ReactNode }) {
   );
 }
 
-function NewsCard({ item }: { item: (typeof beritaData)[number] }) {
+function NewsCard({ item }: { item: { judul: string; tanggal: string; slug: string; gambar_url: string | null } }) {
   return (
     <article style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
-      <div className="placeholder-block" style={{ width: "100%", aspectRatio: "1.08/1", borderRadius: 0 }} />
-      <h3
-        className="decorative-font"
-        style={{ fontSize: "17.07px", fontWeight: 400, color: "#4a3f30", lineHeight: 1.5, margin: 0 }}
-      >
-        {item.judul}
-      </h3>
+      <Link href={`/berita/${item.slug}`} style={{ textDecoration: "none", display: "flex", flexDirection: "column", gap: "12px" }}>
+        <div style={{ width: "100%", aspectRatio: "1.08/1", position: "relative", overflow: "hidden" }}>
+          {item.gambar_url ? (
+            <Image
+              src={item.gambar_url}
+              alt={item.judul}
+              fill
+              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 33vw, 300px"
+              style={{ objectFit: "cover" }}
+            />
+          ) : (
+            <div className="placeholder-block" style={{ width: "100%", height: "100%" }} />
+          )}
+        </div>
+        <h3
+          className="decorative-font"
+          style={{ fontSize: "17.07px", fontWeight: 400, color: "#4a3f30", lineHeight: 1.5, margin: 0 }}
+        >
+          {item.judul}
+        </h3>
+      </Link>
       <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
         <span className="ui-font" style={{ fontSize: "11px", color: "#8a7962" }}>
           {item.tanggal}
@@ -79,7 +77,16 @@ function NewsCard({ item }: { item: (typeof beritaData)[number] }) {
   );
 }
 
-export default function BeritaInformasi() {
+export default async function BeritaInformasi() {
+  const supabase = await createClient();
+  const { data: beritaData } = await supabase
+    .from("berita")
+    .select("judul, tanggal, slug, gambar_url")
+    .order("created_at", { ascending: false })
+    .limit(3);
+
+  const items = beritaData ?? [];
+
   return (
     <section className="px-sec" style={{ background: "#faf4e8", paddingTop: "34px", paddingBottom: "92px" }}>
       <div style={{ textAlign: "center", marginBottom: "48px" }}>
@@ -106,11 +113,23 @@ export default function BeritaInformasi() {
         </p>
       </div>
 
-      <div className="berita-grid">
-        {beritaData.map((item) => (
-          <NewsCard key={item.slug} item={item} />
-        ))}
-      </div>
+      {items.length > 0 ? (
+        <div className="berita-grid">
+          {items.map((item) => (
+            <NewsCard key={item.slug} item={item} />
+          ))}
+        </div>
+      ) : (
+        <div className="berita-grid">
+          {[1, 2, 3].map((i) => (
+            <article key={i} style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
+              <div className="placeholder-block" style={{ width: "100%", aspectRatio: "1.08/1", borderRadius: 0 }} />
+              <div className="placeholder-block" style={{ width: "80%", height: "18px" }} />
+              <div className="placeholder-block" style={{ width: "40%", height: "12px" }} />
+            </article>
+          ))}
+        </div>
+      )}
 
       <div style={{ textAlign: "center", marginTop: "46px" }}>
         <Link
