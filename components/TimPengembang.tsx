@@ -9,51 +9,25 @@ function Entry({ role, name }: { role: string; name: string }) {
   );
 }
 
-// Fallback data used when DB is empty
-const fallbackPengelola = [
-  { jabatan: "Penanggungjawab", nama: "Tendi Nugraha" },
-  { jabatan: "Pengelola Konten", nama: "Ahmad Rizky Fauzi" },
-  { jabatan: "Administrator Website", nama: "A. Nenda Makhtun MK" },
-  { jabatan: "Editor/Proofreader", nama: "Eggy Aditiar" },
-  { jabatan: "Technical Support", nama: "Tata Tarmana" },
-  { jabatan: "Visual Desainer/Illustrator", nama: "Bagus Indra Baitullah" },
-  { jabatan: "Sosial Media & Promosi", nama: "W. Rio Wijaya" },
-];
-
-const fallbackKontributor = [
-  { jabatan: "Ciamis Kulon", nama: "Pasca Adha Pratama" },
-  { jabatan: "Ciamis Kidul", nama: "Eka Wijaya Permana" },
-  { jabatan: "Ciamis Kaler", nama: "Nu'man Yazid" },
-  { jabatan: "Ciamis Wetan", nama: "Lu'luatun Nazmi" },
-];
-
 export default async function TimPengembang() {
   const supabase = await createClient();
   const { data: rows } = await supabase
     .from("tim_pengelola")
     .select("id, nama, jabatan, tipe, wilayah, urutan")
-    .order("tipe", { ascending: true }) // kontributor < pengelola alphabetically; we'll sort manually
     .order("urutan", { ascending: true });
 
-  // Split by tipe
-  const pengelola = rows?.filter((r) => r.tipe === "pengelola") ?? [];
-  const kontributor = rows?.filter((r) => r.tipe === "kontributor") ?? [];
+  if (!rows || rows.length === 0) return null;
 
-  // Use fallback if DB is empty
-  const useFallback = !rows || rows.length === 0;
-  const pengelolaList = useFallback
-    ? fallbackPengelola
-    : pengelola.map((r) => ({ jabatan: r.jabatan ?? "", nama: r.nama ?? "" }));
-  const kontributorList = useFallback
-    ? fallbackKontributor
-    : kontributor.map((r) => ({
-        jabatan: r.wilayah ?? r.jabatan ?? "",
-        nama: r.nama ?? "",
-      }));
+  const pengelolaList = rows
+    .filter((r) => r.tipe === "pengelola")
+    .map((r) => ({ jabatan: r.jabatan ?? "", nama: r.nama ?? "" }));
 
-  // Chunk pengelola into groups of 3 columns
+  const kontributorList = rows
+    .filter((r) => r.tipe === "kontributor")
+    .map((r) => ({ jabatan: r.wilayah ?? r.jabatan ?? "", nama: r.nama ?? "" }));
+
   const COLS = 3;
-  const cols: typeof pengelolaList[] = [[], [], []];
+  const cols: { jabatan: string; nama: string }[][] = [[], [], []];
   pengelolaList.forEach((item, i) => {
     cols[i % COLS].push(item);
   });
@@ -79,16 +53,18 @@ export default async function TimPengembang() {
               ))}
             </div>
           ))}
-          <div style={{ display: "flex", flexDirection: "column", gap: "14px" }}>
-            <span className="ui-font" style={{ fontSize: "11px", color: "#7a6a54", fontWeight: 700 }}>
-              Kontributor:
-            </span>
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "4px 20px" }}>
-              {kontributorList.map((e) => (
-                <Entry key={e.nama} role={e.jabatan} name={e.nama} />
-              ))}
+          {kontributorList.length > 0 && (
+            <div style={{ display: "flex", flexDirection: "column", gap: "14px" }}>
+              <span className="ui-font" style={{ fontSize: "11px", color: "#7a6a54", fontWeight: 700 }}>
+                Kontributor:
+              </span>
+              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "4px 20px" }}>
+                {kontributorList.map((e) => (
+                  <Entry key={e.nama} role={e.jabatan} name={e.nama} />
+                ))}
+              </div>
             </div>
-          </div>
+          )}
         </div>
       </div>
     </section>

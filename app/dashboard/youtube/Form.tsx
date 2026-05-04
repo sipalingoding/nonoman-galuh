@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef, useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import { createYoutube, updateYoutube } from "./actions";
 
 const inputStyle = {
@@ -40,6 +41,7 @@ const cancelBtn = {
 } as const;
 
 export default function YoutubeForm({ editItem }: { editItem: any | null }) {
+  const router = useRouter();
   const formRef = useRef<HTMLFormElement>(null);
   const [show, setShow] = useState(!!editItem);
 
@@ -63,6 +65,7 @@ export default function YoutubeForm({ editItem }: { editItem: any | null }) {
             await action(fd);
             formRef.current?.reset();
             setShow(false);
+            router.push("/dashboard");
           }}
           style={{
             background: "#fffef9",

@@ -1,11 +1,6 @@
 import Image from "next/image";
 import { createClient } from "@/lib/supabase/server";
 
-const FALLBACK_URLS = [
-  "https://www.youtube.com/watch?v=HKvJGh9ZzK4",
-  "https://www.youtube.com/watch?v=uMELDhbNQCY",
-  "https://www.youtube.com/watch?v=z0kU1Nc7gCs",
-];
 
 function getVideoId(url: string) {
   try {
@@ -156,10 +151,10 @@ export default async function KanalYoutube() {
     .order("created_at", { ascending: false })
     .limit(3);
 
-  const videoUrls = rows && rows.length > 0 ? rows.map((r) => r.url) : FALLBACK_URLS;
+  if (!rows || rows.length === 0) return null;
 
   const videos = await Promise.all(
-    videoUrls.map(async (url) => ({ url, ...(await fetchVideoTitle(url)) }))
+    rows.map(async (r) => ({ url: r.url, ...(await fetchVideoTitle(r.url)) }))
   );
 
   return (

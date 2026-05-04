@@ -10,12 +10,11 @@ type AgendaItem = {
   tanggal: string | null;
   lokasi: string | null;
   deskripsi: string | null;
-  slug: string | null;
   gambar_url: string | null;
 };
 
 function AgendaCard({ item }: { item: AgendaItem }) {
-  const href = item.slug ? `/agenda/${item.slug}` : "#";
+  const href = "#";
   return (
     <article style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
       <Link href={href} style={{ textDecoration: "none", display: "flex", flexDirection: "column", gap: "12px" }}>
@@ -55,7 +54,7 @@ export default async function AgendaPage() {
   const supabase = await createClient();
   const { data, count } = await supabase
     .from("agenda")
-    .select("id, nama, tanggal, lokasi, deskripsi, slug, gambar_url", { count: "exact" })
+    .select("id, nama, tanggal, lokasi, deskripsi, gambar_url", { count: "exact" })
     .order("created_at", { ascending: false });
 
   const items: AgendaItem[] = data ?? [];

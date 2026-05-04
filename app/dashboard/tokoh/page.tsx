@@ -38,7 +38,7 @@ export default async function TokohPage({
     <div style={{ maxWidth: "900px" }}>
       <div style={{ marginBottom: "28px" }}>
         <h1 className="decorative-font" style={{ fontSize: "26px", fontWeight: 400, color: "#2c2416", margin: 0 }}>
-          Wisata & Tokoh
+          Tokoh
         </h1>
       </div>
 
@@ -49,7 +49,6 @@ export default async function TokohPage({
           <thead>
             <tr>
               <th style={thStyle}>Nama</th>
-              <th style={thStyle}>Jabatan</th>
               <th style={thStyle}>Bidang</th>
               <th style={thStyle}>Aksi</th>
             </tr>
@@ -57,7 +56,7 @@ export default async function TokohPage({
           <tbody>
             {(!items || items.length === 0) && (
               <tr>
-                <td colSpan={4} style={{ ...tdStyle, textAlign: "center", color: "#7a6a54", padding: "24px" }}>
+                <td colSpan={3} style={{ ...tdStyle, textAlign: "center", color: "#7a6a54", padding: "24px" }}>
                   Belum ada tokoh.
                 </td>
               </tr>
@@ -67,7 +66,6 @@ export default async function TokohPage({
               return (
                 <tr key={item.id}>
                   <td style={tdStyle}>{item.nama}</td>
-                  <td style={tdStyle}>{item.jabatan}</td>
                   <td style={tdStyle}>{item.bidang}</td>
                   <td style={{ ...tdStyle, whiteSpace: "nowrap" as const }}>
                     <Link href={`/dashboard/tokoh?edit=${item.id}`} style={{ fontSize: "12px", color: "#0e7566", marginRight: "12px" }}>

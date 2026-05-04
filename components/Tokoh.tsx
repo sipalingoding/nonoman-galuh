@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 
-export default async function WisataTokoh() {
+export default async function Tokoh() {
   const supabase = await createClient();
   const { data: tokohData } = await supabase
     .from("tokoh")

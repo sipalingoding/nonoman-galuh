@@ -6,7 +6,7 @@ export default async function AgendaBudaya() {
   const supabase = await createClient();
   const { data: agendaData } = await supabase
     .from("agenda")
-    .select("id, nama, tanggal, gambar_url, slug")
+    .select("id, nama, tanggal, gambar_url")
     .order("created_at", { ascending: false })
     .limit(2);
 
@@ -71,7 +71,7 @@ export default async function AgendaBudaya() {
             }}
           >
             {displayItems.map((agenda, i) => {
-              const href = (agenda as any).slug ? `/agenda/${(agenda as any).slug}` : "/agenda";
+              const href = "/agenda";
               return (
                 <article key={agenda.id ?? i} style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
                   <Link href={href} style={{ textDecoration: "none", display: "flex", flexDirection: "column", gap: "8px" }}>

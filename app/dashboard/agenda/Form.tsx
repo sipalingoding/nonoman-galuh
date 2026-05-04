@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef, useState, useEffect, useTransition } from "react";
+import { useRouter } from "next/navigation";
 import { createAgenda, updateAgenda } from "./actions";
 
 const MONTHS_ID: Record<string, string> = {
@@ -27,6 +28,7 @@ const primaryBtn = { padding: "9px 20px", borderRadius: "8px", backgroundColor: 
 const cancelBtn = { padding: "9px 16px", borderRadius: "8px", backgroundColor: "#f5ede0", color: "#4a3f30", border: "none", cursor: "pointer", fontSize: "13px" } as const;
 
 export default function AgendaForm({ editItem }: { editItem: any | null }) {
+  const router = useRouter();
   const formRef = useRef<HTMLFormElement>(null);
   const [show, setShow] = useState(!!editItem);
   const [isPending, startTransition] = useTransition();
@@ -34,6 +36,7 @@ export default function AgendaForm({ editItem }: { editItem: any | null }) {
   const existingDates = editItem?.tanggal ? parseRangeToISO(editItem.tanggal) : { mulai: "", selesai: "" };
 
   useEffect(() => { if (editItem) setShow(true); }, [editItem]);
+  useEffect(() => { setPreviewUrl(editItem?.gambar_url ?? ""); }, [editItem?.id]);
 
   return (
     <div style={{ marginBottom: "32px" }}>
@@ -50,6 +53,7 @@ export default function AgendaForm({ editItem }: { editItem: any | null }) {
               formRef.current?.reset();
               setPreviewUrl("");
               setShow(false);
+              router.push("/dashboard");
             });
           }}
           style={{ background: "#fffef9", border: "1px solid #e0d8cc", borderRadius: "14px", padding: "24px 28px", display: "flex", flexDirection: "column", gap: "14px", marginBottom: "20px" }}

@@ -1,10 +1,28 @@
 import { createClient } from "@/lib/supabase/server";
 
+const statItems = [
+  { label: "Berita & Informasi", table: "berita",  color: "#c8341f", bg: "#fee2e2" },
+  { label: "Agenda Budaya",      table: "agenda",  color: "#0e7566", bg: "#d1fae5" },
+  { label: "Kanal YouTube",      table: "kanal_youtube", color: "#1d4ed8", bg: "#dbeafe" },
+  { label: "Tokoh",              table: "tokoh",   color: "#6d28d9", bg: "#ede9fe" },
+  { label: "Rak Buku",           table: "buku",    color: "#b45309", bg: "#fef3c7" },
+  { label: "Tim Pengembang",     table: "tim",     color: "#0f766e", bg: "#ccfbf1" },
+];
+
 export default async function DashboardPage() {
   const supabase = await createClient();
   const {
     data: { user },
   } = await supabase.auth.getUser();
+
+  const counts = await Promise.all(
+    statItems.map(({ table }) =>
+      supabase
+        .from(table)
+        .select("*", { count: "exact", head: true })
+        .then(({ count }) => count ?? 0)
+    )
+  );
 
   return (
     <div style={{ maxWidth: "960px" }}>
@@ -28,22 +46,18 @@ export default async function DashboardPage() {
       <div
         style={{
           display: "grid",
-          gridTemplateColumns: "repeat(3, 1fr)",
-          gap: "20px",
+          gridTemplateColumns: "repeat(4, 1fr)",
+          gap: "16px",
           marginBottom: "32px",
         }}
       >
-        {[
-          { label: "Total Berita", color: "#c8341f", bg: "#fee2e2" },
-          { label: "Total Agenda", color: "#0e7566", bg: "#d1fae5" },
-          { label: "Total Artikel", color: "#7f3a21", bg: "#fef9c3" },
-        ].map((stat) => (
+        {statItems.map((stat, i) => (
           <div
             key={stat.label}
             style={{
               backgroundColor: "#fffef9",
               borderRadius: "14px",
-              padding: "24px",
+              padding: "20px",
               border: "1px solid #e0d8cc",
               boxShadow: "0 2px 8px rgba(44,36,22,.06)",
             }}
@@ -51,24 +65,24 @@ export default async function DashboardPage() {
             <div
               style={{
                 display: "inline-flex",
-                padding: "6px 12px",
+                padding: "4px 10px",
                 borderRadius: "999px",
                 backgroundColor: stat.bg,
-                marginBottom: "12px",
+                marginBottom: "10px",
               }}
             >
               <span
                 className="serif-title"
-                style={{ fontSize: "11px", fontWeight: 700, color: stat.color }}
+                style={{ fontSize: "10px", fontWeight: 700, color: stat.color }}
               >
                 {stat.label}
               </span>
             </div>
             <div
               className="decorative-font"
-              style={{ fontSize: "36px", color: "#2c2416", lineHeight: 1 }}
+              style={{ fontSize: "34px", color: "#2c2416", lineHeight: 1 }}
             >
-              —
+              {counts[i]}
             </div>
           </div>
         ))}

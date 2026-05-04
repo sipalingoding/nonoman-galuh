@@ -31,7 +31,6 @@ export async function createBerita(formData: FormData) {
   const { error } = await supabase.from("berita").insert({
     judul,
     ringkasan: formData.get("ringkasan") as string,
-    konten: formData.get("konten") as string,
     gambar_url,
     tanggal: formatTanggalID(formData.get("tanggal") as string),
     slug: makeSlug(judul),
@@ -50,7 +49,6 @@ export async function updateBerita(id: string, formData: FormData) {
   const { error } = await supabase.from("berita").update({
     judul,
     ringkasan: formData.get("ringkasan") as string,
-    konten: formData.get("konten") as string,
     gambar_url,
     tanggal: formatTanggalID(formData.get("tanggal") as string),
     slug: makeSlug(judul),

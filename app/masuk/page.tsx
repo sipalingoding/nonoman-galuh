@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 import { createClient } from "@/lib/supabase/client";
 
 export default function MasukPage() {
@@ -270,6 +271,28 @@ export default function MasukPage() {
         >
           Hanya akun admin yang dapat masuk ke portal ini.
         </p>
+
+        <div style={{ textAlign: "center", marginTop: "16px" }}>
+          <Link
+            href="/"
+            style={{
+              display: "inline-flex",
+              alignItems: "center",
+              gap: "6px",
+              fontSize: "12.5px",
+              color: "#c8341f",
+              textDecoration: "none",
+              fontFamily: "var(--font-sans), Inter, sans-serif",
+              fontWeight: 500,
+            }}
+          >
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M19 12H5" />
+              <polyline points="12 19 5 12 12 5" />
+            </svg>
+            Kembali ke Halaman Utama
+          </Link>
+        </div>
       </div>
 
       <style>{`

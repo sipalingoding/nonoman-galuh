@@ -4,7 +4,7 @@ import StatsBar from "@/components/StatsBar";
 import BeritaInformasi from "@/components/BeritaInformasi";
 import ArtikelBudaya from "@/components/ArtikelBudaya";
 import AgendaBudaya from "@/components/AgendaBudaya";
-import WisataTokoh from "@/components/WisataTokoh";
+import Tokoh from "@/components/Tokoh";
 import KanalYoutube from "@/components/KanalYoutube";
 import RakBuku from "@/components/RakBuku";
 import TimPengembang from "@/components/TimPengembang";
@@ -20,7 +20,7 @@ export default function HomePage() {
         <BeritaInformasi />
         <ArtikelBudaya />
         <AgendaBudaya />
-        <WisataTokoh />
+        <Tokoh />
         <KanalYoutube />
         <RakBuku />
         <TimPengembang />

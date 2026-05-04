@@ -3,9 +3,6 @@
 import { createClient } from "@/lib/supabase/server";
 import { revalidatePath } from "next/cache";
 
-function makeSlug(s: string) {
-  return s.toLowerCase().replace(/[^a-z0-9\s]/g, "").trim().replace(/\s+/g, "-");
-}
 
 const MONTHS = ["Januari","Februari","Maret","April","Mei","Juni","Juli","Agustus","September","Oktober","November","Desember"];
 function formatTanggalID(iso: string): string {
@@ -42,7 +39,6 @@ export async function createAgenda(formData: FormData) {
     lokasi: formData.get("lokasi") as string,
     tanggal: buildTanggalRange(mulai, selesai || mulai),
     gambar_url,
-    slug: makeSlug(nama),
   });
   if (error) throw new Error(error.message);
   revalidatePath("/dashboard/agenda");
@@ -63,7 +59,6 @@ export async function updateAgenda(id: string, formData: FormData) {
     lokasi: formData.get("lokasi") as string,
     tanggal: buildTanggalRange(mulai, selesai || mulai),
     gambar_url,
-    slug: makeSlug(nama),
   }).eq("id", id);
   if (error) throw new Error(error.message);
   revalidatePath("/dashboard/agenda");

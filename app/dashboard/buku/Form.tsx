@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef, useState, useEffect, useTransition } from "react";
+import { useRouter } from "next/navigation";
 import { createBuku, updateBuku } from "./actions";
 
 const inputStyle = {
@@ -12,12 +13,14 @@ const primaryBtn = { padding: "9px 20px", borderRadius: "8px", backgroundColor: 
 const cancelBtn = { padding: "9px 16px", borderRadius: "8px", backgroundColor: "#f5ede0", color: "#4a3f30", border: "none", cursor: "pointer", fontSize: "13px" } as const;
 
 export default function BukuForm({ editItem }: { editItem: any | null }) {
+  const router = useRouter();
   const formRef = useRef<HTMLFormElement>(null);
   const [show, setShow] = useState(!!editItem);
   const [isPending, startTransition] = useTransition();
   const [previewUrl, setPreviewUrl] = useState<string>(editItem?.cover_url ?? "");
 
   useEffect(() => { if (editItem) setShow(true); }, [editItem]);
+  useEffect(() => { setPreviewUrl(editItem?.cover_url ?? ""); }, [editItem?.id]);
 
   return (
     <div style={{ marginBottom: "32px" }}>
@@ -34,6 +37,7 @@ export default function BukuForm({ editItem }: { editItem: any | null }) {
               formRef.current?.reset();
               setPreviewUrl("");
               setShow(false);
+              router.push("/dashboard");
             });
           }}
           style={{ background: "#fffef9", border: "1px solid #e0d8cc", borderRadius: "14px", padding: "24px 28px", display: "flex", flexDirection: "column", gap: "14px", marginBottom: "20px" }}

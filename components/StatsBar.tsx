@@ -1,21 +1,34 @@
-const stats = [
-  { value: "08", label: "Berita" },
-  { value: "50", label: "Artikel" },
-  { value: "80", label: "Video" },
-  { value: "50", label: "Anggota" },
+import { createClient } from "@/lib/supabase/server";
+
+const statDefs = [
+  { label: "Berita",  table: "berita"       },
+  { label: "Artikel", table: "artikel"      },
+  { label: "Video",   table: "youtube"      },
+  { label: "Anggota", table: "tim_pengelola" },
 ];
 
-export default function StatsBar() {
+export default async function StatsBar() {
+  const supabase = await createClient();
+
+  const counts = await Promise.all(
+    statDefs.map(({ table }) =>
+      supabase
+        .from(table)
+        .select("*", { count: "exact", head: true })
+        .then(({ count }) => count ?? 0)
+    )
+  );
+
   return (
     <section className="stats-bar-section" style={{ background: "#faf4e8" }}>
       <div className="stats-pill">
-        {stats.map((s) => (
+        {statDefs.map((s, i) => (
           <div key={s.label} style={{ display: "flex", alignItems: "baseline", gap: "8px" }}>
             <span
               className="label-font"
               style={{ fontSize: "30.87px", fontWeight: 700, color: "#fffef9", lineHeight: 1 }}
             >
-              {s.value}
+              {String(counts[i]).padStart(2, "0")}
             </span>
             <span
               className="label-font"

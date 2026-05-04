@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import FormRegistrasi from "@/components/FormRegistrasi";
 import { createClient } from "@/lib/supabase/server";
 
 type Props = { params: Promise<{ slug: string }> };
@@ -67,10 +68,11 @@ export default async function AgendaDetailPage({ params }: Props) {
             </div>
           )}
 
-          <div style={{ marginTop: "48px" }}>
+          <div style={{ marginTop: "48px", display: "flex", alignItems: "center", gap: "16px", flexWrap: "wrap" }}>
             <Link href="/agenda" className="ui-font" style={{ display: "inline-block", background: "#d14e1f", color: "#fffef9", padding: "10px 28px", borderRadius: "999px", fontSize: "12px", fontWeight: 700, textDecoration: "none" }}>
               ← Kembali ke Agenda
             </Link>
+            <FormRegistrasi />
           </div>
         </div>
       </section>

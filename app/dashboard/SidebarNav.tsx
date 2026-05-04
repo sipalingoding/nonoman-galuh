@@ -6,10 +6,9 @@ import { logout } from "./actions";
 
 const menuItems = [
   { label: "Berita & Informasi", icon: "📰", href: "/dashboard/berita" },
-  { label: "Artikel Budaya", icon: "📜", href: "/dashboard/artikel" },
   { label: "Agenda Budaya", icon: "📅", href: "/dashboard/agenda" },
   { label: "Kanal YouTube", icon: "▶️", href: "/dashboard/youtube" },
-  { label: "Wisata & Tokoh", icon: "🗺️", href: "/dashboard/tokoh" },
+  { label: "Tokoh", icon: "🗺️", href: "/dashboard/tokoh" },
   { label: "Rak Buku", icon: "📚", href: "/dashboard/buku" },
   { label: "Tim Pengembang", icon: "👥", href: "/dashboard/tim" },
 ];
@@ -94,7 +93,7 @@ export default function SidebarNav({ email }: { email: string }) {
       {/* Nav */}
       <nav style={{ padding: "12px", flex: 1 }}>
         {menuItems.map((item) => {
-          const active = pathname === item.href || pathname.startsWith(item.href + "/");
+          const active = pathname !== null && (pathname === item.href || pathname.startsWith(item.href + "/"));
           return (
             <Link
               key={item.label}

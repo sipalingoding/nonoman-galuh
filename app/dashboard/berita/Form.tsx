@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef, useState, useEffect, useTransition } from "react";
+import { useRouter } from "next/navigation";
 import { createBerita, updateBerita } from "./actions";
 
 const MONTHS_ID: Record<string, string> = {
@@ -22,12 +23,14 @@ const primaryBtn = { padding: "9px 20px", borderRadius: "8px", backgroundColor: 
 const cancelBtn = { padding: "9px 16px", borderRadius: "8px", backgroundColor: "#f5ede0", color: "#4a3f30", border: "none", cursor: "pointer", fontSize: "13px" } as const;
 
 export default function BeritaForm({ editItem }: { editItem: any | null }) {
+  const router = useRouter();
   const formRef = useRef<HTMLFormElement>(null);
   const [show, setShow] = useState(!!editItem);
   const [isPending, startTransition] = useTransition();
   const [previewUrl, setPreviewUrl] = useState<string>(editItem?.gambar_url ?? "");
 
   useEffect(() => { if (editItem) setShow(true); }, [editItem]);
+  useEffect(() => { setPreviewUrl(editItem?.gambar_url ?? ""); }, [editItem?.id]);
 
   return (
     <div style={{ marginBottom: "32px" }}>
@@ -44,6 +47,7 @@ export default function BeritaForm({ editItem }: { editItem: any | null }) {
               formRef.current?.reset();
               setPreviewUrl("");
               setShow(false);
+              router.push("/dashboard");
             });
           }}
           style={{ background: "#fffef9", border: "1px solid #e0d8cc", borderRadius: "14px", padding: "24px 28px", display: "flex", flexDirection: "column", gap: "14px", marginBottom: "20px" }}
@@ -58,10 +62,6 @@ export default function BeritaForm({ editItem }: { editItem: any | null }) {
           <div>
             <label style={labelStyle}>Ringkasan</label>
             <textarea name="ringkasan" required rows={3} defaultValue={editItem?.ringkasan ?? ""} style={{ ...inputStyle, resize: "vertical" }} />
-          </div>
-          <div>
-            <label style={labelStyle}>Isi Artikel</label>
-            <textarea name="konten" rows={8} defaultValue={editItem?.konten ?? ""} placeholder="Tulis isi artikel lengkap di sini..." style={{ ...inputStyle, resize: "vertical" }} />
           </div>
           <div>
             <label style={labelStyle}>Tanggal</label>

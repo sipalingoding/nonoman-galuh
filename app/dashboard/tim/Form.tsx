@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef, useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import { createTim, updateTim } from "./actions";
 
 const inputStyle = {
@@ -40,6 +41,7 @@ const cancelBtn = {
 } as const;
 
 export default function TimForm({ editItem }: { editItem: any | null }) {
+  const router = useRouter();
   const formRef = useRef<HTMLFormElement>(null);
   const [show, setShow] = useState(!!editItem);
   const [tipe, setTipe] = useState<string>(editItem?.tipe ?? "pengelola");
@@ -68,6 +70,7 @@ export default function TimForm({ editItem }: { editItem: any | null }) {
             formRef.current?.reset();
             setShow(false);
             setTipe("pengelola");
+            router.push("/dashboard");
           }}
           style={{
             background: "#fffef9",
