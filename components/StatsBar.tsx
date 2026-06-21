@@ -23,17 +23,11 @@ export default async function StatsBar() {
     <section className="stats-bar-section" style={{ background: "#faf4e8" }}>
       <div className="stats-pill">
         {statDefs.map((s, i) => (
-          <div key={s.label} style={{ display: "flex", alignItems: "baseline", gap: "8px" }}>
-            <span
-              className="label-font"
-              style={{ fontSize: "30.87px", fontWeight: 700, color: "#fffef9", lineHeight: 1 }}
-            >
+          <div key={s.label} className="stats-item">
+            <span className="stats-number label-font">
               {String(counts[i]).padStart(2, "0")}
             </span>
-            <span
-              className="label-font"
-              style={{ fontSize: "19.29px", color: "#fffef9", fontWeight: 400 }}
-            >
+            <span className="stats-label label-font">
               {s.label}
             </span>
           </div>

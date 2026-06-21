@@ -296,6 +296,9 @@ main {
   padding: 0 86px;
   box-shadow: 0 14px 18px rgba(44,36,22,.22);
 }
+.stats-item { display: flex; align-items: baseline; gap: 8px; }
+.stats-number { font-size: 30.87px; font-weight: 700; color: #fffef9; line-height: 1; }
+.stats-label { font-size: 19.29px; color: #fffef9; font-weight: 400; }
 
 /* Grids */
 .agenda-grid {
@@ -358,7 +361,9 @@ main {
   .hero-divider-row { width: 100%; max-width: 380px; }
   .hero-cloud { width: 240px; height: 178px; }
   .hero-imgs-wrapper { transform: scale(0.52); transform-origin: top left; }
-  .stats-pill { width: calc(100% - 96px); padding: 0 40px; }
+  .stats-pill { width: calc(100% - 96px); padding: 0 40px; border-radius: 24px; }
+  .stats-number { font-size: 26px; }
+  .stats-label { font-size: 16px; }
   .agenda-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
   .agenda-right { width: 100%; height: 400px; }
   .berita-grid { grid-template-columns: 1fr 1fr; gap: 24px; }
@@ -366,6 +371,20 @@ main {
   .tim-grid { grid-template-columns: 1fr 1fr; gap: 24px; }
   .footer-kawali-grid { grid-template-columns: 180px 1fr; gap: 32px; }
   .footer-main-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
+}
+
+/* ─── Small Tablet (≤ 768px) ────────────────────────────────────── */
+@media (max-width: 768px) {
+  .stats-bar-section { height: auto; padding: 20px 20px 28px; }
+  .stats-pill {
+    position: relative; top: 0; left: 0; transform: none;
+    width: auto; border-radius: 16px; padding: 24px 20px;
+    height: auto; box-sizing: border-box;
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 20px; justify-items: center;
+  }
+  .stats-number { font-size: 24px; }
+  .stats-label { font-size: 15px; }
 }
 
 /* ─── Mobile (≤ 640px) ───────────────────────────────────────────── */
@@ -406,11 +425,13 @@ main {
   .stats-bar-section { height: auto; padding: 20px 20px 28px; }
   .stats-pill {
     position: relative; top: 0; left: 0; transform: none;
-    width: 100%; border-radius: 16px; padding: 24px 20px;
-    height: auto;
+    width: auto; border-radius: 16px; padding: 24px 20px;
+    height: auto; box-sizing: border-box;
     display: grid; grid-template-columns: 1fr 1fr;
     gap: 20px; justify-items: center;
   }
+  .stats-number { font-size: 24px; }
+  .stats-label { font-size: 14px; }
 
   .agenda-grid { grid-template-columns: 1fr; gap: 24px; }
   .agenda-right { width: 100%; height: 260px; }
