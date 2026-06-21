@@ -180,7 +180,7 @@ export default function Footer() {
           color: "rgba(255,255,255,.6)",
         }}
       >
-        Copyright © 2025 | Pangauban Kawargian Nonoman Galuh
+        Copyright © 2026 | Pangauban Kawargian Nonoman Galuh
       </div>
     </footer>
   );
