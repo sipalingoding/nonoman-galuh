@@ -44,9 +44,10 @@ export default async function DashboardPage() {
 
       {/* Stats cards */}
       <div
+        className="dashboard-stats-grid"
         style={{
           display: "grid",
-          gridTemplateColumns: "repeat(4, 1fr)",
+          gridTemplateColumns: "repeat(3, 1fr)",
           gap: "16px",
           marginBottom: "32px",
         }}

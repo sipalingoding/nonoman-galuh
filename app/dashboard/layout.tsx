@@ -10,9 +10,9 @@ export default async function DashboardLayout({ children }: { children: React.Re
   if (!user) redirect("/masuk");
 
   return (
-    <div style={{ display: "flex", minHeight: "100vh", backgroundColor: "#faf4e8" }}>
+    <div className="dashboard-layout">
       <SidebarNav email={user.email ?? ""} />
-      <main style={{ flex: 1, padding: "36px 40px", overflow: "auto" }}>
+      <main className="dashboard-main">
         {children}
       </main>
     </div>
