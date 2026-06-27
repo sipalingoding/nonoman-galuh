@@ -54,7 +54,7 @@ export default function Hero() {
 
           <div className="hero-divider-row">
             <Link
-              href="/tentang"
+              href="/profil"
               className="serif-title"
               style={{
                 display: "inline-block",

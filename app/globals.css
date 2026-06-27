@@ -463,6 +463,24 @@ main {
   .footer-main-grid { grid-template-columns: 1fr; gap: 28px; }
 }
 
+/* ─── Tentang / Selayang Pandang ────────────────────────────────── */
+.tentang-stats-bar   { display: grid; grid-template-columns: repeat(3, 1fr); }
+.visi-misi-grid      { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: start; }
+.kegiatan-grid       { display: grid; grid-template-columns: repeat(2, 1fr); gap: 32px; }
+.galeri-mosaic       { display: grid; grid-template-columns: repeat(3, 1fr); grid-auto-rows: 220px; gap: 12px; }
+
+@media (max-width: 768px) {
+  .visi-misi-grid    { grid-template-columns: 1fr; gap: 36px; }
+  .kegiatan-grid     { grid-template-columns: 1fr; gap: 24px; }
+  .galeri-mosaic     { grid-template-columns: 1fr 1fr; grid-auto-rows: 150px; }
+  .galeri-wide       { grid-column: span 2 !important; }
+}
+
+@media (max-width: 640px) {
+  .tentang-stats-bar { grid-template-columns: 1fr; }
+  .galeri-mosaic     { grid-auto-rows: 130px; }
+}
+
 /* ─── Dashboard Responsive ───────────────────────────────────────── */
 .dashboard-layout {
   display: flex;
